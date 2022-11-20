@@ -47,6 +47,13 @@ class Login extends StatelessWidget {
                   password = value;
                 },
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextButton(
+                onPressed: () {},
+                child: const Text('Boton'),
+              ),
             )
           ],
         ),
