@@ -16,6 +16,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.amber,
         ),
-        home: const Scaffold(body: Login()));
+        home: const Login());
   }
 }
