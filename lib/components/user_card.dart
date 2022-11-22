@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ucabgo_ui/components/icon_text.dart';
 
 class UserCard extends StatelessWidget {
   const UserCard({super.key});
@@ -16,7 +17,7 @@ class UserCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(40),
         child: Material(
           //Color
-          color: Colors.pink,
+          color: Colors.lightGreen,
           child: InkWell(
             //InkWell para efecto splash y funcion onTap
             onTap: () {},
@@ -33,6 +34,28 @@ class UserCard extends StatelessWidget {
                       child: Image.network('https://picsum.photos/250?image=9'),
                     ),
                   ),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(15),
+                  child: Column(children: [
+                    const FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text(
+                        'Diego Alexander Gamboa Rojas',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black87,
+                            fontSize: 14),
+                      ),
+                    ),
+                    Row(
+                      children: const [
+                        IconText(message: '4', icon: Icons.access_alarm),
+                        IconText(message: '5', icon: Icons.android),
+                        IconText(message: '6', icon: Icons.apartment),
+                      ],
+                    )
+                  ]),
                 )
               ]),
             ),
