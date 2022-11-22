@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:ucabgo_ui/classes/user.dart';
 import 'package:ucabgo_ui/components/icon_text.dart';
 
+///Widget para las tarjetas de usuario, permite mostrar la informacion del usuario
 class UserCard extends StatelessWidget {
-  const UserCard({super.key});
+  final User user;
+
+  const UserCard({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+
     return Container(
       //Contenedor externo para margenes con otros elementos
       margin: EdgeInsets.only(
@@ -19,7 +24,6 @@ class UserCard extends StatelessWidget {
           //Color
           color: Colors.lightGreen,
           child: InkWell(
-            //InkWell para efecto splash y funcion onTap
             onTap: () {},
             child: Container(
               color: Colors.transparent,
@@ -39,6 +43,7 @@ class UserCard extends StatelessWidget {
                   margin: const EdgeInsets.all(15),
                   child: Column(children: [
                     const FittedBox(
+                      // hacer mas pruebas si esto realmente ayuda a escalar el texto
                       fit: BoxFit.contain,
                       child: Text(
                         'Diego Alexander Gamboa Rojas',

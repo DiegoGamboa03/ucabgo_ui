@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+///Muestra un icono y un texto, pensado para usar dentro de las tarjetas de usuario
 class IconText extends StatelessWidget {
   final String message;
   final IconData icon;

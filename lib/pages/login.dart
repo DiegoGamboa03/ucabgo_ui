@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
-import 'map.dart';
+import 'trip_page.dart';
 
 String email = '';
 String password = '';
 
+///Login de la App
 class Login extends StatelessWidget {
   const Login({super.key});
 
@@ -57,7 +57,7 @@ class Login extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const CityMap()),
+                      MaterialPageRoute(builder: (context) => const TripPage()),
                     );
                   },
                   child: const Text('Boton'),

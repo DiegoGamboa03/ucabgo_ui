@@ -1,9 +1,10 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:ucabgo_ui/components/user_card.dart';
 
-class CityMap extends StatelessWidget {
-  const CityMap({super.key});
+///Sobre esta page, se encuentran todos los elementos de la UI para buscar
+///o realizar colas
+class TripPage extends StatelessWidget {
+  const TripPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class CityMap extends StatelessWidget {
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
-          children: const [UserCard(), UserCard()]),
+          children: const []),
     ));
   }
 }
