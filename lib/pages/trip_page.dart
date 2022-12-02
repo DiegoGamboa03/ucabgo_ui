@@ -27,7 +27,7 @@ class TripPage extends StatelessWidget {
             changeMapMode(mapController);
           },
           initialCameraPosition: const CameraPosition(
-              zoom: 15, target: LatLng(52.52309894124325, 13.413122125924026))),
+              zoom: 17, target: LatLng(8.296805712036571, -62.71160479227906))),
       //const DraggableScrollableSheetTrip()
     ]));
   }
