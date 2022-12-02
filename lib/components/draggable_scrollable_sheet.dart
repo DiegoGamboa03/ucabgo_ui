@@ -30,8 +30,12 @@ class _DraggableScrollableSheetTripState
                 topRight: Radius.circular(40.0)),
             child: Container(
               color: Colors.blue[100],
-              child: Column(
+              child: ListView(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                controller: scrollController,
                 children: [
+                  //Aqui necesito agregar aqui un grip para el draggable_scrollable_sheet, para poder agarrarlo bien
                   const IconInput(
                       labelText: '1', icon: Icons.addchart_outlined),
                   const IconInput(
@@ -39,9 +43,6 @@ class _DraggableScrollableSheetTripState
                   const IconInput(
                       labelText: '1', icon: Icons.addchart_outlined),
                   ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    controller: scrollController,
                     itemCount: 3,
                     itemBuilder: (BuildContext context, int index) {
                       return UserCard(user: usersList[index]);
