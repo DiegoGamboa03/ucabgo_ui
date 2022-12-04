@@ -24,6 +24,18 @@ class _AppMapState extends State<AppMap> {
     const LatLng(8.2968527, -62.7117946)
   ];
 
+  final Set<Marker> _marker = HashSet<Marker>();
+  //List<Marker> _marker = [];
+  final List<Marker> _list = const [
+// List of Markers Added on Google Map
+    Marker(
+        markerId: MarkerId('1'),
+        position: LatLng(8.2967921, -62.7115856),
+        infoWindow: InfoWindow(
+          title: 'My Position',
+        )),
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -35,17 +47,20 @@ class _AppMapState extends State<AppMap> {
       geodesic: true,
       strokeWidth: 4,
     ));
+    _marker.addAll(_list);
   }
 
   @override
   Widget build(BuildContext context) {
     return GoogleMap(
-        onMapCreated: (GoogleMapController c) {
-          mapController = c;
-          changeMapMode(mapController);
-        },
-        polygons: _polygon,
-        initialCameraPosition: const CameraPosition(
-            zoom: 17, target: LatLng(8.296805712036571, -62.71160479227906)));
+      onMapCreated: (GoogleMapController c) {
+        mapController = c;
+        changeMapMode(mapController);
+      },
+      initialCameraPosition: const CameraPosition(
+          zoom: 17, target: LatLng(8.296805712036571, -62.71160479227906)),
+      polygons: _polygon,
+      markers: _marker,
+    );
   }
 }
