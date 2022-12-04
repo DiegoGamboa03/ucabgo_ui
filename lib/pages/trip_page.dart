@@ -1,10 +1,12 @@
 // ignore: file_names
 import 'dart:async';
+import 'dart:collection';
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ucabgo_ui/components/draggable_scrollable_sheet.dart';
 
+import '../components/map.dart';
 import '../helpers/map_helpers.dart';
 
 ///Sobre esta page, se encuentran todos los elementos de la UI para buscar
@@ -21,13 +23,7 @@ class TripPage extends StatelessWidget {
 
     return Scaffold(
         body: Stack(children: [
-      GoogleMap(
-          onMapCreated: (GoogleMapController c) {
-            mapController = c;
-            changeMapMode(mapController);
-          },
-          initialCameraPosition: const CameraPosition(
-              zoom: 17, target: LatLng(8.296805712036571, -62.71160479227906))),
+      AppMap()
       //const DraggableScrollableSheetTrip()
     ]));
   }
