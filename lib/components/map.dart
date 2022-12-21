@@ -15,7 +15,7 @@ class _AppMapState extends State<AppMap> {
   late GoogleMapController mapController;
 
   final Set<Polygon> _polygon = HashSet<Polygon>();
-
+  //hacer una funcion que cargue los points desde la api
   List<LatLng> points = [
     const LatLng(8.2968527, -62.7117946),
     const LatLng(8.2965767, -62.7116229),
@@ -25,7 +25,8 @@ class _AppMapState extends State<AppMap> {
   ];
 
   final Set<Marker> _marker = HashSet<Marker>();
-  //List<Marker> _marker = [];
+
+  //Hacer una funcion que cargue estos markers desde la api
   final List<Marker> _list = const [
 // List of Markers Added on Google Map
     Marker(
@@ -39,6 +40,8 @@ class _AppMapState extends State<AppMap> {
   @override
   void initState() {
     super.initState();
+    //llamaria ambas funciones y las agregaria asi
+    //_polygon.addAll(elements) usar esto de addAll para cargar multiples polygons
     _polygon.add(Polygon(
       polygonId: const PolygonId('1'),
       points: points,

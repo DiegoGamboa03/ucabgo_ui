@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-//this is the function to load custom map style json
+//funcion que carga el mapa custom
 void changeMapMode(GoogleMapController mapController) {
   getJsonFile("lib/assets/map_style.json")
       .then((value) => setMapStyle(value, mapController));
