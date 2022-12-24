@@ -20,8 +20,6 @@ class _AppMapState extends State<AppMap> {
   @override
   void initState() {
     super.initState();
-    //llamaria ambas funciones y las agregaria asi
-    //_polygon.addAll(elements) usar esto de addAll para cargar multiples polygons
     _polygon.addAll(getZones());
     _marker.addAll(getLandmarks());
   }
