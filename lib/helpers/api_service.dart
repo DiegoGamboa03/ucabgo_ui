@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:async';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ucabgo_ui/classes/landmark.dart';
@@ -36,19 +39,42 @@ List<Polygon> getZones() {
 
 List<Marker> getLandmarks() {
   List<Landmark> landmarks = [];
-
-  var landmark = Landmark(LatLng(8.2967921, -62.7115856));
-  landmarks.add(landmark);
-
   List<Marker> markers = [];
-  for (int i = 0; i < landmarks.length; i++) {
-    markers.add(Marker(
-        markerId: MarkerId(i.toString()),
-        position: landmarks[i].point,
-        infoWindow: const InfoWindow(
-          title: 'My Position',
-        )));
-  }
 
+  late Future<List<dynamic>> futureLandmarkList;
+
+  futureLandmarkList = fetchLandmarkList();
+
+  futureLandmarkList.then((value) => (value) {
+        landmarks = value;
+        List<Marker> markers = [];
+        for (int i = 0; i < landmarks.length; i++) {
+          markers.add(Marker(
+              markerId: MarkerId(i.toString()),
+              position: landmarks[i].point,
+              infoWindow: const InfoWindow(
+                title: 'My Position',
+              )));
+        }
+        return markers;
+      });
+  //var landmark = Landmark(LatLng(8.2967921, -62.7115856));
+  //landmarks.add(landmark);
   return markers;
+}
+
+Future<List> fetchLandmarkList() async {
+  final response =
+      await http.get(Uri.parse('http://192.168.1.109:3000/data/landmarks'));
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    dynamic data = jsonDecode(response.body);
+    return data.map((element) => Landmark.fromJson(element)).toList();
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load album');
+  }
 }

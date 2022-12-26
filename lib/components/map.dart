@@ -22,6 +22,7 @@ class _AppMapState extends State<AppMap> {
     super.initState();
     _polygon.addAll(getZones());
     _marker.addAll(getLandmarks());
+    //Quiero añadir una pantalla de carga que haga esperar que se carguen estos datos
   }
 
   @override
