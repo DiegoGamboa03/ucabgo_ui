@@ -1,10 +1,13 @@
 import 'dart:convert';
 import 'dart:async';
+import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ucabgo_ui/classes/landmark.dart';
 import 'package:ucabgo_ui/classes/zone.dart';
+
+import '../providers/landmarks_provider.dart';
 
 List<Polygon> getZones() {
   Zone zone;
@@ -37,27 +40,28 @@ List<Polygon> getZones() {
   return polygons;
 }
 
-List<Marker> getLandmarks() {
-  List<Landmark> landmarks = [];
+List<Marker> getLandmarks(BuildContext context) {
+  List<dynamic> landmarks = [];
   List<Marker> markers = [];
 
   late Future<List<dynamic>> futureLandmarkList;
 
   futureLandmarkList = fetchLandmarkList();
 
-  futureLandmarkList.then((value) => (value) {
-        landmarks = value;
-        List<Marker> markers = [];
-        for (int i = 0; i < landmarks.length; i++) {
-          markers.add(Marker(
-              markerId: MarkerId(i.toString()),
-              position: landmarks[i].point,
-              infoWindow: const InfoWindow(
-                title: 'My Position',
-              )));
-        }
-        return markers;
-      });
+  fetchLandmarkList().then((value) {
+    landmarks = value;
+    List<Marker> markers = [];
+    for (int i = 0; i < landmarks.length; i++) {
+      markers.add(Marker(
+          markerId: MarkerId(landmarks[i].id),
+          position: landmarks[i].point,
+          infoWindow: InfoWindow(
+            title: landmarks[i].name,
+          )));
+    }
+    Provider.of<Markers>(context, listen: false).addMarkers(markers);
+    return markers;
+  });
   //var landmark = Landmark(LatLng(8.2967921, -62.7115856));
   //landmarks.add(landmark);
   return markers;

@@ -55,10 +55,7 @@ class Login extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const TripPage()),
-                    );
+                    Navigator.pushNamed(context, '/tripPage');
                   },
                   child: const Text('Boton'),
                 ),
