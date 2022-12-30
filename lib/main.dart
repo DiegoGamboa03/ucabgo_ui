@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ucabgo_ui/pages/login.dart';
 import 'package:ucabgo_ui/pages/trip_page.dart';
+import 'package:ucabgo_ui/pages/register.dart';
 import 'package:ucabgo_ui/providers/landmarks_provider.dart';
 
 void main() {
@@ -23,8 +24,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: '/',
+      theme: ThemeData(
+          brightness: Brightness.light,
+          primaryColor: Color.fromARGB(255, 21, 102, 170),
+          accentColor: Color.fromARGB(255, 174, 209, 238)),
       routes: {
         '/': (context) => const Login(),
+        '/register': (context) => const Register(),
         '/tripPage': (context) => const TripPage(),
       },
     );
