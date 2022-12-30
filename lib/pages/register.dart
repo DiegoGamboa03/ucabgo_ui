@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'trip_page.dart';
-import 'login.dart';
 
 String username = '';
 String email = '';
@@ -53,12 +51,23 @@ class Register extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: TextField(
-                    obscureText: false,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Nombre de Usuario',
                     ),
                     onChanged: (value) {
+                      username = value;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: TextField(
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Correo UCAB',
+                    ),
+                    onChanged: (value) {
                       email = value;
                     },
                   ),
@@ -66,91 +75,72 @@ class Register extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: TextField(
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Contraseña',
-                    ),
-                    onChanged: (value) {
-                      password = value;
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: TextField(
-                    obscureText: false,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Edad',
                     ),
                     onChanged: (value) {
-                      email = value;
+                      age = value;
                     },
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: TextField(
-                    obscureText: true,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Rol',
                     ),
                     onChanged: (value) {
-                      password = value;
+                      role = value;
                     },
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: TextField(
-                    obscureText: false,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Género',
                     ),
                     onChanged: (value) {
-                      email = value;
+                      gender = value;
                     },
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: TextField(
-                    obscureText: true,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Número Telefónico',
                     ),
                     onChanged: (value) {
-                      password = value;
+                      phoneNumber = value;
                     },
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: TextField(
-                    obscureText: false,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Carrera',
                     ),
                     onChanged: (value) {
-                      email = value;
+                      major = value;
                     },
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: TextField(
-                    obscureText: true,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Semestre',
                     ),
                     onChanged: (value) {
-                      password = value;
+                      semester = value;
                     },
                   ),
                 ),
@@ -169,7 +159,7 @@ class Register extends StatelessWidget {
                 ),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Theme.of(context).primaryColor),
+                        backgroundColor: Theme.of(context).primaryColor),
                     onPressed: () {
                       Navigator.pushNamed(context, '/tripPage');
                     },

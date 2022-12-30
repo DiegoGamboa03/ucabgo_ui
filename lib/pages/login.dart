@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'trip_page.dart';
-import 'register.dart';
 
 String email = '';
 String password = '';
@@ -71,7 +69,7 @@ class Login extends StatelessWidget {
                 ),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Theme.of(context).primaryColor),
+                        backgroundColor: Theme.of(context).primaryColor),
                     onPressed: () {
                       Navigator.pushNamed(context, '/tripPage');
                     },
