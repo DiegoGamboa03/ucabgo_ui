@@ -12,4 +12,9 @@ class Polygons with ChangeNotifier {
     _polygons.addAll(value);
     notifyListeners();
   }
+
+  void addZone(Polygon value) {
+    _polygons.add(value);
+    notifyListeners();
+  }
 }
