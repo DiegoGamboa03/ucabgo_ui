@@ -18,42 +18,65 @@ class _DraggableScrollableSheetTripState
     var usersList = [
       User(id: '1', name: '1', password: '1'),
       User(id: '2', name: '2', password: '2'),
-      User(id: '3', name: '3', password: '3')
     ];
 
-    return SizedBox.expand(
-      child: DraggableScrollableSheet(
-        builder: (BuildContext context, ScrollController scrollController) {
-          return ClipRRect(
+    return DraggableScrollableSheet(
+      initialChildSize: 0.55,
+      maxChildSize: 1,
+      snap: true,
+      snapSizes: const [
+        0.55,
+      ],
+      builder: (BuildContext context, ScrollController scrollController) {
+        return SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          controller: scrollController,
+          child: ClipRRect(
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(40.0),
                 topRight: Radius.circular(40.0)),
             child: Container(
               color: Colors.blue[100],
-              child: ListView(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                controller: scrollController,
-                children: [
-                  //Aqui necesito agregar aqui un grip para el draggable_scrollable_sheet, para poder agarrarlo bien
-                  const IconInput(
-                      labelText: '1', icon: Icons.addchart_outlined),
-                  const IconInput(
-                      labelText: '1', icon: Icons.addchart_outlined),
-                  const IconInput(
-                      labelText: '1', icon: Icons.addchart_outlined),
-                  ListView.builder(
-                    itemCount: 3,
-                    itemBuilder: (BuildContext context, int index) {
-                      return UserCard(user: usersList[index]);
-                    },
-                  ),
-                ],
+              child: Expanded(
+                child: Column(
+                  children: [
+                    Container(
+                      color: Colors.green,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin:
+                                  const EdgeInsets.only(top: 20, bottom: 20),
+                              height: 10,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey),
+                            )
+                          ]),
+                    ),
+                    const IconInput(
+                        labelText: '1', icon: Icons.addchart_outlined),
+                    const IconInput(
+                        labelText: '1', icon: Icons.addchart_outlined),
+                    const IconInput(
+                        labelText: '1', icon: Icons.addchart_outlined),
+                    ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: 2,
+                      itemBuilder: (BuildContext context, int index) {
+                        return UserCard(user: usersList[index]);
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

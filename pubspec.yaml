@@ -41,6 +41,7 @@ dependencies:
   provider: ^6.0.5
   dio: ^4.0.6
   google_maps_utils: ^1.5.0+0
+  maps_toolkit: ^2.0.1
 
 dev_dependencies:
   flutter_test:

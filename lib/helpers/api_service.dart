@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:provider/provider.dart';
+import 'package:maps_toolkit/maps_toolkit.dart' as mp;
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -95,10 +96,10 @@ void getSpecialZone(BuildContext context) {
   fetchSpecialZone().then((value) {
     specialZone = value;
     List<LatLng> points = [];
-    List<Point> polygon = [];
+    List<mp.LatLng> polygon = [];
     for (int i = 0; i < specialZone.length; i++) {
       points.add(specialZone[i].point);
-      polygon.add(Point(specialZone[i].lng, specialZone[i].lat));
+      polygon.add(mp.LatLng(specialZone[i].lat, specialZone[i].lng));
     }
 
     var routePolygon = Polygon(
@@ -110,9 +111,12 @@ void getSpecialZone(BuildContext context) {
       strokeWidth: 4,
     );
 
-    Point point = const Point(-62.7298523, 8.2998008);
+    //Point point = const Point(-62.7298523, 8.2998008);
 
-    var contains = utils.PolyUtils.containsLocationPoly(point, polygon);
+    var point = mp.LatLng(8.2998008, -62.7298523);
+
+    //var contains = utils.PolyUtils.containsLocationPoly(point, polygon);
+    var contains2 = mp.PolygonUtil.containsLocation(point, polygon, false);
 
     Provider.of<Polygons>(context, listen: false).addZone(routePolygon);
 
@@ -136,6 +140,6 @@ Future<List> fetchSpecialZone() async {
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
-    throw Exception('Failed to load Landmarks');
+    throw Exception('Failed to load specialZone');
   }
 }
