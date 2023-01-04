@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ucabgo_ui/pages/login.dart';
-import 'package:ucabgo_ui/pages/trip_page.dart';
-import 'package:ucabgo_ui/pages/register.dart';
+import '/pages/login_page.dart';
+import '/pages/trip_page.dart';
+import '/pages/register_page.dart';
 import 'package:ucabgo_ui/providers/markers_provider.dart';
 import 'package:ucabgo_ui/providers/polygons_provider.dart';
 
@@ -28,11 +28,10 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       theme: ThemeData(
           brightness: Brightness.light,
-          primaryColor: Color.fromARGB(255, 21, 102, 170),
-          accentColor: Color.fromARGB(255, 174, 209, 238)),
+          primaryColor: Color.fromARGB(255, 21, 102, 170)),
       routes: {
-        '/': (context) => const Login(),
-        '/register': (context) => const Register(),
+        '/': (context) => const LoginPage(),
+        '/register': (context) => const RegisterPage(),
         '/tripPage': (context) => const TripPage(),
       },
     );
