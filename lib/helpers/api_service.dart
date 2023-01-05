@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ucabgo_ui/classes/landmark.dart';
 import 'package:ucabgo_ui/classes/zone.dart';
+import 'package:ucabgo_ui/classes/user.dart';
 import 'package:ucabgo_ui/providers/polygons_provider.dart';
-
 import '../providers/markers_provider.dart';
+import 'package:ucabgo_ui/providers/users_provider.dart';
 
 void getZones(BuildContext context) {
   List<dynamic> zones = [];
@@ -82,5 +83,39 @@ Future<List> fetchLandmarkList() async {
     // If the server did not return a 200 OK response,
     // then throw an exception.
     throw Exception('Failed to load Landmarks');
+  }
+}
+
+void getUsers(BuildContext context) {
+  List<dynamic> users = [];
+
+  fetchUserList().then((value) {
+    List<User> users = [];
+    for (int i = 0; i < users.length; i++) {
+      users.add(User(
+        id: users[i].id,
+        password: users[i].password,
+        name: users[i].password,
+      ));
+    }
+    Provider.of<Users>(context, listen: false).addUsers(users);
+    return;
+  });
+  return;
+}
+
+Future<List> fetchUserList() async {
+  final response =
+      await http.get(Uri.parse('http://192.168.0.101:3000/router/users'));
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    dynamic data = jsonDecode(response.body);
+    return data.map((element) => User.fromJson(element)).toList();
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load Users');
   }
 }

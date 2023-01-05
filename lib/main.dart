@@ -5,6 +5,7 @@ import '/pages/trip_page.dart';
 import '/pages/register_page.dart';
 import 'package:ucabgo_ui/providers/markers_provider.dart';
 import 'package:ucabgo_ui/providers/polygons_provider.dart';
+import 'package:ucabgo_ui/providers/users_provider.dart';
 
 void main() {
   runApp(
@@ -12,6 +13,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => Markers()),
         ChangeNotifierProvider(create: (_) => Polygons()),
+        ChangeNotifierProvider(create: (_) => Users()),
       ],
       child: const MyApp(),
     ),
