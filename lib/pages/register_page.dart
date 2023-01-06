@@ -24,12 +24,22 @@ class _RegisterPageState extends State<RegisterPage> {
   String? major;
   String? semester;
   String? password;
+  List<dynamic> roles = [
+    {"id": 1, "rol": "Estudiante"},
+    {"id": 2, "rol": "Profesor"},
+    {"id": 3, "rol": "Trabajador"}
+  ];
+  List<dynamic> genders = [
+    {"id": 1, "gender": "Maculino"},
+    {"id": 2, "gender": "Femenino"},
+    {"id": 3, "gender": "Otro"}
+  ];
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 53, 57, 182),
+        backgroundColor: Color.fromARGB(255, 199, 223, 235),
         body: ProgressHUD(
           child: Form(
             key: globalFormKey,
@@ -85,7 +95,7 @@ class _RegisterPageState extends State<RegisterPage> {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
-                color: Colors.white,
+                color: Colors.grey,
               ),
             ),
           ),
@@ -104,12 +114,13 @@ class _RegisterPageState extends State<RegisterPage> {
               (onSavedVal) {
                 username = onSavedVal;
               },
-              borderFocusColor: Colors.white,
-              prefixIconColor: Colors.white,
-              borderColor: Colors.white,
-              textColor: Colors.white,
-              hintColor: Colors.white.withOpacity(0.7),
-              borderRadius: 5,
+              backgroundColor: Colors.white,
+              borderFocusColor: Colors.green,
+              prefixIconColor: Colors.green,
+              borderColor: Colors.green,
+              textColor: Colors.grey,
+              hintColor: Colors.grey.withOpacity(0.7),
+              borderRadius: 10,
             ),
           ),
           Padding(
@@ -127,12 +138,13 @@ class _RegisterPageState extends State<RegisterPage> {
               (onSavedVal) {
                 email = onSavedVal;
               },
-              borderFocusColor: Colors.white,
-              prefixIconColor: Colors.white,
-              borderColor: Colors.white,
-              textColor: Colors.white,
-              hintColor: Colors.white.withOpacity(0.7),
-              borderRadius: 5,
+              backgroundColor: Colors.white,
+              borderFocusColor: Colors.green,
+              prefixIconColor: Colors.green,
+              borderColor: Colors.green,
+              textColor: Colors.grey,
+              hintColor: Colors.grey.withOpacity(0.7),
+              borderRadius: 10,
             ),
           ),
           Padding(
@@ -150,35 +162,105 @@ class _RegisterPageState extends State<RegisterPage> {
               (onSavedVal) {
                 age = onSavedVal;
               },
-              borderFocusColor: Colors.white,
-              prefixIconColor: Colors.white,
-              borderColor: Colors.white,
-              textColor: Colors.white,
-              hintColor: Colors.white.withOpacity(0.7),
-              borderRadius: 5,
+              backgroundColor: Colors.white,
+              borderFocusColor: Colors.green,
+              prefixIconColor: Colors.green,
+              borderColor: Colors.green,
+              textColor: Colors.grey,
+              hintColor: Colors.grey.withOpacity(0.7),
+              borderRadius: 10,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: FormHelper.inputFieldWidget(
-              context,
-              "gender",
-              "Género",
-              (onValidateVal) {
-                if (onValidateVal.isEmpty) {
-                  return "El género no puede estar vacío.";
-                }
-                return null;
-              },
-              (onSavedVal) {
-                gender = onSavedVal;
-              },
-              borderFocusColor: Colors.white,
-              prefixIconColor: Colors.white,
-              borderColor: Colors.white,
-              textColor: Colors.white,
-              hintColor: Colors.white.withOpacity(0.7),
-              borderRadius: 5,
+            padding: const EdgeInsets.only(
+                left: 30.0, top: 10.0, bottom: 10.0, right: 30.0),
+            child: Container(
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      Colors.white,
+                      Colors.white,
+                    ],
+                  ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  )),
+              child: FormHelper.dropDownWidget(
+                context,
+                "Rol en la institución",
+                role,
+                roles,
+                (onChangedVal) {
+                  role = onChangedVal;
+                },
+                (onValidateVal) {
+                  if (onValidateVal.isEmpty) {
+                    return "El rol no puede estar vacío.";
+                  }
+                  return null;
+                },
+                paddingLeft: 0,
+                paddingRight: 0,
+                borderFocusColor: Colors.green,
+                prefixIconColor: Colors.green,
+                borderColor: Colors.green,
+                borderRadius: 10,
+                optionValue: "id",
+                optionLabel: "rol",
+                textColor: Colors.grey,
+                hintColor: Colors.grey.withOpacity(0.7),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+                left: 30.0, top: 10.0, bottom: 10.0, right: 30.0),
+            child: Container(
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      Colors.white,
+                      Colors.white,
+                    ],
+                  ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  )),
+              child: FormHelper.dropDownWidget(
+                context,
+                "Género",
+                gender,
+                genders,
+                (onChangedVal) {
+                  gender = onChangedVal;
+                },
+                (onValidateVal) {
+                  if (onValidateVal.isEmpty) {
+                    return "El género no puede estar vacío.";
+                  }
+                  return null;
+                },
+                paddingLeft: 0,
+                paddingRight: 0,
+                borderFocusColor: Colors.green,
+                prefixIconColor: Colors.green,
+                borderColor: Colors.green,
+                borderRadius: 10,
+                optionValue: "id",
+                optionLabel: "gender",
+                textColor: Colors.grey,
+                hintColor: Colors.grey.withOpacity(0.7),
+              ),
             ),
           ),
           Padding(
@@ -196,12 +278,13 @@ class _RegisterPageState extends State<RegisterPage> {
               (onSavedVal) {
                 phoneNumber = onSavedVal;
               },
-              borderFocusColor: Colors.white,
-              prefixIconColor: Colors.white,
-              borderColor: Colors.white,
-              textColor: Colors.white,
-              hintColor: Colors.white.withOpacity(0.7),
-              borderRadius: 5,
+              backgroundColor: Colors.white,
+              borderFocusColor: Colors.green,
+              prefixIconColor: Colors.green,
+              borderColor: Colors.green,
+              textColor: Colors.grey,
+              hintColor: Colors.grey.withOpacity(0.7),
+              borderRadius: 10,
             ),
           ),
           Padding(
@@ -219,12 +302,13 @@ class _RegisterPageState extends State<RegisterPage> {
               (onSavedVal) {
                 major = onSavedVal;
               },
-              borderFocusColor: Colors.white,
-              prefixIconColor: Colors.white,
-              borderColor: Colors.white,
-              textColor: Colors.white,
-              hintColor: Colors.white.withOpacity(0.7),
-              borderRadius: 5,
+              backgroundColor: Colors.white,
+              borderFocusColor: Colors.green,
+              prefixIconColor: Colors.green,
+              borderColor: Colors.green,
+              textColor: Colors.grey,
+              hintColor: Colors.grey.withOpacity(0.7),
+              borderRadius: 10,
             ),
           ),
           Padding(
@@ -242,12 +326,13 @@ class _RegisterPageState extends State<RegisterPage> {
               (onSavedVal) {
                 age = onSavedVal;
               },
-              borderFocusColor: Colors.white,
-              prefixIconColor: Colors.white,
-              borderColor: Colors.white,
-              textColor: Colors.white,
-              hintColor: Colors.white.withOpacity(0.7),
-              borderRadius: 5,
+              backgroundColor: Colors.white,
+              borderFocusColor: Colors.green,
+              prefixIconColor: Colors.green,
+              borderColor: Colors.green,
+              textColor: Colors.grey,
+              hintColor: Colors.grey.withOpacity(0.7),
+              borderRadius: 10,
             ),
           ),
           Padding(
@@ -265,11 +350,13 @@ class _RegisterPageState extends State<RegisterPage> {
               (onSavedVal) {
                 password = onSavedVal;
               },
-              borderFocusColor: Colors.white,
-              borderColor: Colors.white,
-              textColor: Colors.white,
-              hintColor: Colors.white.withOpacity(0.7),
-              borderRadius: 5,
+              backgroundColor: Colors.white,
+              borderFocusColor: Colors.green,
+              prefixIconColor: Colors.green,
+              borderColor: Colors.green,
+              textColor: Colors.grey,
+              hintColor: Colors.grey.withOpacity(0.7),
+              borderRadius: 10,
               obscureText: hidePassword,
               suffixIcon: IconButton(
                   onPressed: () {
@@ -277,7 +364,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       hidePassword = !hidePassword;
                     });
                   },
-                  color: Colors.white.withOpacity(0.7),
+                  color: Colors.grey.withOpacity(0.7),
                   icon: Icon(
                       hidePassword ? Icons.visibility_off : Icons.visibility)),
             ),
@@ -287,10 +374,10 @@ class _RegisterPageState extends State<RegisterPage> {
             () {
               Navigator.pushNamed(context, '/');
             },
-            btnColor: Color.fromARGB(255, 53, 57, 182),
+            btnColor: Colors.green,
             borderColor: Colors.white,
             txtColor: Colors.white,
-            borderRadius: 5,
+            borderRadius: 15,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 53, 57, 182),
+        backgroundColor: Color.fromARGB(255, 199, 223, 235),
         body: ProgressHUD(
           child: Form(
             key: globalFormKey,
@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
-                color: Colors.white,
+                color: Colors.grey,
               ),
             ),
           ),
@@ -97,12 +97,15 @@ class _LoginPageState extends State<LoginPage> {
               (onSavedVal) {
                 email = onSavedVal;
               },
-              borderFocusColor: Colors.white,
-              prefixIconColor: Colors.white,
-              borderColor: Colors.white,
-              textColor: Colors.white,
-              hintColor: Colors.white.withOpacity(0.7),
-              borderRadius: 5,
+              prefixIcon: const Icon(Icons.email_outlined),
+              showPrefixIcon: true,
+              backgroundColor: Colors.white,
+              borderFocusColor: Colors.green,
+              prefixIconColor: Colors.green,
+              borderColor: Colors.green,
+              textColor: Colors.grey,
+              hintColor: Colors.grey.withOpacity(0.7),
+              borderRadius: 10,
             ),
           ),
           Padding(
@@ -120,11 +123,15 @@ class _LoginPageState extends State<LoginPage> {
               (onSavedVal) {
                 password = onSavedVal;
               },
-              borderFocusColor: Colors.white,
-              borderColor: Colors.white,
-              textColor: Colors.white,
-              hintColor: Colors.white.withOpacity(0.7),
-              borderRadius: 5,
+              prefixIcon: const Icon(Icons.lock_outlined),
+              showPrefixIcon: true,
+              backgroundColor: Colors.white,
+              borderFocusColor: Colors.green,
+              prefixIconColor: Colors.green,
+              borderColor: Colors.green,
+              textColor: Colors.grey,
+              hintColor: Colors.grey.withOpacity(0.7),
+              borderRadius: 10,
               obscureText: hidePassword,
               suffixIcon: IconButton(
                   onPressed: () {
@@ -132,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                       hidePassword = !hidePassword;
                     });
                   },
-                  color: Colors.white.withOpacity(0.7),
+                  color: Colors.grey.withOpacity(0.7),
                   icon: Icon(
                       hidePassword ? Icons.visibility_off : Icons.visibility)),
             ),
@@ -162,10 +169,10 @@ class _LoginPageState extends State<LoginPage> {
             () {
               Navigator.pushNamed(context, '/tripPage');
             },
-            btnColor: Color.fromARGB(255, 53, 57, 182),
+            btnColor: Colors.green,
             borderColor: Colors.white,
             txtColor: Colors.white,
-            borderRadius: 5,
+            borderRadius: 15,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
