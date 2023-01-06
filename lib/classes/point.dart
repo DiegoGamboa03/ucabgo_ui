@@ -6,7 +6,8 @@ class Position {
   var lat;
   var lng;
 
-  Position({required this.point, required this.lat, required this.lng});
+  Position(
+      {this.point = const LatLng(0, 0), required this.lat, required this.lng});
 
   factory Position.fromJson(Map<String, dynamic> json) {
     var lat = json['lat'];

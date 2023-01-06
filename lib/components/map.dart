@@ -27,6 +27,7 @@ class _AppMapState extends State<AppMap> {
   @override
   Widget build(BuildContext context) {
     return GoogleMap(
+      //zoomControlsEnabled: false,
       onMapCreated: (GoogleMapController c) {
         mapController = c;
         changeMapMode(mapController);

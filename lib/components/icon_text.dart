@@ -13,8 +13,8 @@ class IconText extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
 
     return Container(
-      margin: EdgeInsets.only(
-          top: height * 0.01, left: width * 0.07, right: width * 0.07),
+      //margin: EdgeInsets.only(
+      // top: height * 0.01, left: width * 0.07, right: width * 0.07),
       child: Row(children: [Icon(icon), Text(message)]),
     );
   }

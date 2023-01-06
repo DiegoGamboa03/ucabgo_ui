@@ -21,12 +21,7 @@ class _DraggableScrollableSheetTripState
     ];
 
     return DraggableScrollableSheet(
-      initialChildSize: 0.55,
-      maxChildSize: 1,
-      snap: true,
-      snapSizes: const [
-        0.55,
-      ],
+      minChildSize: 0.05,
       builder: (BuildContext context, ScrollController scrollController) {
         return SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -37,41 +32,38 @@ class _DraggableScrollableSheetTripState
                 topRight: Radius.circular(40.0)),
             child: Container(
               color: Colors.blue[100],
-              child: Expanded(
-                child: Column(
-                  children: [
-                    Container(
-                      color: Colors.green,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin:
-                                  const EdgeInsets.only(top: 20, bottom: 20),
-                              height: 10,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.grey),
-                            )
-                          ]),
-                    ),
-                    const IconInput(
-                        labelText: '1', icon: Icons.addchart_outlined),
-                    const IconInput(
-                        labelText: '1', icon: Icons.addchart_outlined),
-                    const IconInput(
-                        labelText: '1', icon: Icons.addchart_outlined),
-                    ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 2,
-                      itemBuilder: (BuildContext context, int index) {
-                        return UserCard(user: usersList[index]);
-                      },
-                    ),
-                  ],
-                ),
+              child: Column(
+                children: [
+                  Container(
+                    color: Colors.green,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(top: 20, bottom: 20),
+                            height: 10,
+                            width: 100,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.grey),
+                          )
+                        ]),
+                  ),
+                  const IconInput(
+                      labelText: '1', icon: Icons.addchart_outlined),
+                  const IconInput(
+                      labelText: '1', icon: Icons.addchart_outlined),
+                  const IconInput(
+                      labelText: '1', icon: Icons.addchart_outlined),
+                  ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: 2,
+                    itemBuilder: (BuildContext context, int index) {
+                      return UserCard(user: usersList[index]);
+                    },
+                  ),
+                ],
               ),
             ),
           ),

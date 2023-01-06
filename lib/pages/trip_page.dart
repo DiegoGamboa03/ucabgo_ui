@@ -23,12 +23,14 @@ class TripPage extends StatelessWidget {
     GoogleMapController mapController;
 
     return Scaffold(
-        body: Stack(children: const [DraggableScrollableSheetTrip()]));
-  }
-}
- /*AppMap(),
+        body: Stack(children: [
+      const AppMap(),
       TextButton(
           child: Text('Presiona para cargar el polygon'),
           onPressed: (() {
             getSpecialZone(context);
-          }))*/
+          })),
+      //const DraggableScrollableSheetTrip()
+    ]));
+  }
+}
