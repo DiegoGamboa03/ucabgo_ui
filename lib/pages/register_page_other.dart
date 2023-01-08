@@ -3,19 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 
-///Login de la App
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+///Registro de la App si el rol es Profesor o Trabajador
+class RegisterPageOther extends StatefulWidget {
+  const RegisterPageOther({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageOtherState createState() => _RegisterPageOtherState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageOtherState extends State<RegisterPageOther> {
   bool isAPIcallProcess = false;
   bool hidePassword = true;
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
-  String? email;
+  String? phoneNumber;
+  String? twitter;
+  String? instagram;
   String? password;
 
   @override
@@ -26,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
         body: ProgressHUD(
           child: Form(
             key: globalFormKey,
-            child: _loginUI(context),
+            child: _registerUI(context),
           ),
           inAsyncCall: isAPIcallProcess,
           opacity: 0.3,
@@ -36,14 +38,14 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _loginUI(BuildContext context) {
+  Widget _registerUI(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 3,
+            height: MediaQuery.of(context).size.height / 5,
             decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -71,46 +73,33 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Text(
-              '¡Bienvenido a UCAB GO!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Roboto',
-                fontSize: 45,
-                color: Colors.blue,
-              ),
-            ),
-          ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(20.0),
             child: Text(
-              'Ingresa tus datos',
+              'Registra tus datos',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 20,
+                fontSize: 30,
                 color: Colors.grey,
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(10.0),
             child: FormHelper.inputFieldWidget(
               context,
-              "email",
-              "Correo UCAB",
+              "phoneNumber",
+              "Número de Teléfono",
               (onValidateVal) {
                 if (onValidateVal.isEmpty) {
-                  return "El correo no puede estar vacío.";
+                  return "El número de teléfono no puede estar vacío.";
                 }
                 return null;
               },
               (onSavedVal) {
-                email = onSavedVal;
+                phoneNumber = onSavedVal;
               },
-              prefixIcon: const Icon(Icons.email_outlined),
+              prefixIcon: const Icon(Icons.phone_outlined),
               showPrefixIcon: true,
               prefixIconPaddingLeft: 20,
               backgroundColor: Colors.white,
@@ -123,7 +112,51 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(10.0),
+            child: FormHelper.inputFieldWidget(
+              context,
+              "twitter",
+              "Twitter",
+              (onValidateVal) {},
+              (onSavedVal) {
+                twitter = onSavedVal;
+              },
+              prefixIcon: const Icon(Icons.alternate_email_outlined),
+              showPrefixIcon: true,
+              prefixIconPaddingLeft: 20,
+              backgroundColor: Colors.white,
+              borderFocusColor: Colors.green,
+              prefixIconColor: Colors.green,
+              borderColor: Colors.green,
+              textColor: Colors.grey,
+              hintColor: Colors.grey.withOpacity(0.7),
+              borderRadius: 10,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: FormHelper.inputFieldWidget(
+              context,
+              "instagram",
+              "Instagram",
+              (onValidateVal) {},
+              (onSavedVal) {
+                instagram = onSavedVal;
+              },
+              prefixIcon: const Icon(Icons.camera_alt_outlined),
+              showPrefixIcon: true,
+              prefixIconPaddingLeft: 20,
+              backgroundColor: Colors.white,
+              borderFocusColor: Colors.green,
+              prefixIconColor: Colors.green,
+              borderColor: Colors.green,
+              textColor: Colors.grey,
+              hintColor: Colors.grey.withOpacity(0.7),
+              borderRadius: 10,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
             child: FormHelper.inputFieldWidget(
               context,
               "password",
@@ -160,40 +193,45 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
               Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: TextButton(
-                  onPressed: () {
+                padding: const EdgeInsets.only(left: 30.0),
+                child: FormHelper.submitButton(
+                  "Volver",
+                  () {
+                    Navigator.pushNamed(context, '/register');
+                  },
+                  height: 60,
+                  width: 150,
+                  btnColor: Colors.green,
+                  borderColor: Colors.white,
+                  txtColor: Colors.white,
+                  borderRadius: 15,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 30.0),
+                child: FormHelper.submitButton(
+                  "Registrate",
+                  () {
                     Navigator.pushNamed(context, '/');
                   },
-                  child: const Text(
-                    '¿Olvidó la contraseña?',
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      color: Colors.grey,
-                    ),
-                  ),
+                  height: 60,
+                  width: 150,
+                  btnColor: Colors.green,
+                  borderColor: Colors.white,
+                  txtColor: Colors.white,
+                  borderRadius: 15,
                 ),
               ),
             ],
-          ),
-          FormHelper.submitButton(
-            "Inicia Sesión",
-            () {
-              Navigator.pushNamed(context, '/tripPage');
-            },
-            btnColor: Colors.green,
-            borderColor: Colors.white,
-            txtColor: Colors.white,
-            borderRadius: 15,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                '¿No estas registrado?',
+                '¿Ya estas registrado?',
                 style: TextStyle(
                   color: Colors.grey,
                 ),
@@ -202,10 +240,10 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.all(10.0),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/register');
+                    Navigator.pushNamed(context, '/');
                   },
                   child: const Text(
-                    'Registrate',
+                    'Inicia Sesión',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       color: Colors.grey,

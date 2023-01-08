@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import '/pages/login_page.dart';
 import '/pages/trip_page.dart';
 import '/pages/register_page.dart';
+import '/pages/register_page_student.dart';
+import '/pages/register_page_other.dart';
 import 'package:ucabgo_ui/providers/markers_provider.dart';
 import 'package:ucabgo_ui/providers/polygons_provider.dart';
 import 'package:ucabgo_ui/providers/users_provider.dart';
@@ -34,6 +36,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
+        '/registerStudent': (context) => const RegisterPageStudent(),
+        '/registerOther': (context) => const RegisterPageOther(),
         '/tripPage': (context) => const TripPage(),
       },
     );

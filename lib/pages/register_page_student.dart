@@ -3,33 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 
-///Registro de la App
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+///Registro de la App si el rol es estudiante
+class RegisterPageStudent extends StatefulWidget {
+  const RegisterPageStudent({super.key});
 
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  _RegisterPageStudentState createState() => _RegisterPageStudentState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _RegisterPageStudentState extends State<RegisterPageStudent> {
   bool isAPIcallProcess = false;
   bool hidePassword = true;
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
-  String? username;
-  String? email;
-  String? age;
-  String? role;
-  String? gender;
-  List<dynamic> roles = [
-    {"id": 1, "rol": "Estudiante"},
-    {"id": 2, "rol": "Profesor"},
-    {"id": 3, "rol": "Trabajador"}
-  ];
-  List<dynamic> genders = [
-    {"id": 1, "gender": "Maculino"},
-    {"id": 2, "gender": "Femenino"},
-    {"id": 3, "gender": "Otro"}
-  ];
+  String? phoneNumber;
+  String? major;
+  String? semester;
+  String? twitter;
+  String? instagram;
+  String? password;
 
   @override
   Widget build(BuildContext context) {
@@ -99,18 +90,18 @@ class _RegisterPageState extends State<RegisterPage> {
             padding: const EdgeInsets.all(10.0),
             child: FormHelper.inputFieldWidget(
               context,
-              "username",
-              "Nombre de Usuario",
+              "phoneNumber",
+              "Número de Teléfono",
               (onValidateVal) {
                 if (onValidateVal.isEmpty) {
-                  return "El nombre de usuario no puede estar vacío.";
+                  return "El número de teléfono no puede estar vacío.";
                 }
                 return null;
               },
               (onSavedVal) {
-                username = onSavedVal;
+                phoneNumber = onSavedVal;
               },
-              prefixIcon: const Icon(Icons.person_outline),
+              prefixIcon: const Icon(Icons.phone_outlined),
               showPrefixIcon: true,
               prefixIconPaddingLeft: 20,
               backgroundColor: Colors.white,
@@ -126,18 +117,18 @@ class _RegisterPageState extends State<RegisterPage> {
             padding: const EdgeInsets.all(10.0),
             child: FormHelper.inputFieldWidget(
               context,
-              "email",
-              "Correo UCAB",
+              "major",
+              "Carrera",
               (onValidateVal) {
                 if (onValidateVal.isEmpty) {
-                  return "El correo no puede estar vacío.";
+                  return "La carrera no puede estar vacía.";
                 }
                 return null;
               },
               (onSavedVal) {
-                email = onSavedVal;
+                major = onSavedVal;
               },
-              prefixIcon: const Icon(Icons.email_outlined),
+              prefixIcon: const Icon(Icons.work_outlined),
               showPrefixIcon: true,
               prefixIconPaddingLeft: 20,
               backgroundColor: Colors.white,
@@ -153,18 +144,18 @@ class _RegisterPageState extends State<RegisterPage> {
             padding: const EdgeInsets.all(10.0),
             child: FormHelper.inputFieldWidget(
               context,
-              "age",
-              "Edad",
+              "semester",
+              "Semestre",
               (onValidateVal) {
                 if (onValidateVal.isEmpty) {
-                  return "La edad no puede estar vacía.";
+                  return "El semestre no puede estar vacío.";
                 }
                 return null;
               },
               (onSavedVal) {
-                age = onSavedVal;
+                semester = onSavedVal;
               },
-              prefixIcon: const Icon(Icons.accessibility_outlined),
+              prefixIcon: const Icon(Icons.business_outlined),
               showPrefixIcon: true,
               prefixIconPaddingLeft: 20,
               backgroundColor: Colors.white,
@@ -177,116 +168,110 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(
-                left: 30.0, top: 10.0, bottom: 10.0, right: 30.0),
-            child: Container(
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [
-                      Colors.white,
-                      Colors.white,
-                    ],
-                  ),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  )),
-              child: FormHelper.dropDownWidget(
-                context,
-                "Rol en la institución",
-                role,
-                roles,
-                (onChangedVal) {
-                  role = onChangedVal;
-                },
-                (onValidateVal) {
-                  if (onValidateVal.isEmpty) {
-                    return "El rol no puede estar vacío.";
-                  }
-                  return null;
-                },
-                paddingLeft: 0,
-                paddingRight: 0,
-                prefixIcon: const Icon(Icons.business_outlined),
-                showPrefixIcon: true,
-                prefixIconPaddingLeft: 20,
-                borderFocusColor: Colors.green,
-                prefixIconColor: Colors.green,
-                borderColor: Colors.green,
-                borderRadius: 10,
-                optionValue: "id",
-                optionLabel: "rol",
-                textColor: Colors.grey,
-                hintColor: Colors.grey.withOpacity(0.7),
-              ),
+            padding: const EdgeInsets.all(10.0),
+            child: FormHelper.inputFieldWidget(
+              context,
+              "twitter",
+              "Twitter",
+              (onValidateVal) {},
+              (onSavedVal) {
+                twitter = onSavedVal;
+              },
+              prefixIcon: const Icon(Icons.alternate_email_outlined),
+              showPrefixIcon: true,
+              prefixIconPaddingLeft: 20,
+              backgroundColor: Colors.white,
+              borderFocusColor: Colors.green,
+              prefixIconColor: Colors.green,
+              borderColor: Colors.green,
+              textColor: Colors.grey,
+              hintColor: Colors.grey.withOpacity(0.7),
+              borderRadius: 10,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(
-                left: 30.0, top: 10.0, bottom: 10.0, right: 30.0),
-            child: Container(
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [
-                      Colors.white,
-                      Colors.white,
-                    ],
-                  ),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  )),
-              child: FormHelper.dropDownWidget(
-                context,
-                "Género",
-                gender,
-                genders,
-                (onChangedVal) {
-                  gender = onChangedVal;
-                },
-                (onValidateVal) {
-                  if (onValidateVal.isEmpty) {
-                    return "El género no puede estar vacío.";
-                  }
-                  return null;
-                },
-                paddingLeft: 0,
-                paddingRight: 0,
-                prefixIcon: const Icon(Icons.groups_outlined),
-                showPrefixIcon: true,
-                prefixIconPaddingLeft: 20,
-                borderFocusColor: Colors.green,
-                prefixIconColor: Colors.green,
-                borderColor: Colors.green,
-                borderRadius: 10,
-                optionValue: "id",
-                optionLabel: "gender",
-                textColor: Colors.grey,
-                hintColor: Colors.grey.withOpacity(0.7),
-              ),
+            padding: const EdgeInsets.all(10.0),
+            child: FormHelper.inputFieldWidget(
+              context,
+              "instagram",
+              "Instagram",
+              (onValidateVal) {},
+              (onSavedVal) {
+                instagram = onSavedVal;
+              },
+              prefixIcon: const Icon(Icons.camera_alt_outlined),
+              showPrefixIcon: true,
+              prefixIconPaddingLeft: 20,
+              backgroundColor: Colors.white,
+              borderFocusColor: Colors.green,
+              prefixIconColor: Colors.green,
+              borderColor: Colors.green,
+              textColor: Colors.grey,
+              hintColor: Colors.grey.withOpacity(0.7),
+              borderRadius: 10,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: FormHelper.inputFieldWidget(
+              context,
+              "password",
+              "Contraseña",
+              (onValidateVal) {
+                if (onValidateVal.isEmpty) {
+                  return "La contraseña no puede estar vacía.";
+                }
+                return null;
+              },
+              (onSavedVal) {
+                password = onSavedVal;
+              },
+              prefixIcon: const Icon(Icons.lock_outlined),
+              showPrefixIcon: true,
+              prefixIconPaddingLeft: 20,
+              backgroundColor: Colors.white,
+              borderFocusColor: Colors.green,
+              prefixIconColor: Colors.green,
+              borderColor: Colors.green,
+              textColor: Colors.grey,
+              hintColor: Colors.grey.withOpacity(0.7),
+              borderRadius: 10,
+              obscureText: hidePassword,
+              suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      hidePassword = !hidePassword;
+                    });
+                  },
+                  color: Colors.grey.withOpacity(0.7),
+                  icon: Icon(
+                      hidePassword ? Icons.visibility_off : Icons.visibility)),
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0),
+                child: FormHelper.submitButton(
+                  "Volver",
+                  () {
+                    Navigator.pushNamed(context, '/register');
+                  },
+                  height: 60,
+                  width: 150,
+                  btnColor: Colors.green,
+                  borderColor: Colors.white,
+                  txtColor: Colors.white,
+                  borderRadius: 15,
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.only(right: 30.0),
                 child: FormHelper.submitButton(
-                  "Siguiente",
+                  "Registrate",
                   () {
-                    if (role == "1") {
-                      Navigator.pushNamed(context, '/registerStudent');
-                    } else {
-                      Navigator.pushNamed(context, '/registerOther');
-                    }
+                    Navigator.pushNamed(context, '/');
                   },
                   height: 60,
                   width: 150,
