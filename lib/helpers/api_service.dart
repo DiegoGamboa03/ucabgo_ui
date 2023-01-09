@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:async';
+import 'dart:io';
 import 'package:provider/provider.dart';
 import 'package:maps_toolkit/maps_toolkit.dart' as mp;
 import 'package:http/http.dart' as http;
@@ -10,11 +11,14 @@ import 'package:ucabgo_ui/classes/landmark.dart';
 import 'package:ucabgo_ui/classes/point.dart';
 import 'package:ucabgo_ui/classes/trip_polygon.dart';
 import 'package:ucabgo_ui/classes/zone.dart';
+import 'package:ucabgo_ui/providers/landmarks_provider.dart';
 import 'package:ucabgo_ui/providers/polygons_provider.dart';
 
 import '../providers/markers_provider.dart';
 
-void getZones(BuildContext context) {
+String apiDirection = 'http://192.168.1.109:3000';
+
+Future getZones(BuildContext context) async {
   List<dynamic> zones = [];
 
   fetchZonesList().then((value) {
@@ -34,12 +38,10 @@ void getZones(BuildContext context) {
     Provider.of<Polygons>(context, listen: false).addZones(polygons);
     return;
   });
-  return;
 }
 
 Future<List> fetchZonesList() async {
-  final response =
-      await http.get(Uri.parse('http://192.168.1.109:3000/data/subareas'));
+  final response = await http.get(Uri.parse('$apiDirection/data/subareas'));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
@@ -53,29 +55,30 @@ Future<List> fetchZonesList() async {
   }
 }
 
-void getLandmarks(BuildContext context) {
-  List<dynamic> landmarks = [];
+Future getLandmarks(BuildContext context) async {
+  List<Landmark> landmarks = [];
 
   fetchLandmarkList().then((value) {
-    landmarks = value;
     List<Marker> markers = [];
-    for (int i = 0; i < landmarks.length; i++) {
+    for (int i = 0; i < value.length; i++) {
       markers.add(Marker(
-          markerId: MarkerId(landmarks[i].id),
-          position: landmarks[i].point,
+          markerId: MarkerId(value[i].id),
+          position: value[i].point,
           infoWindow: InfoWindow(
-            title: landmarks[i].name,
+            title: value[i].name,
           )));
+      landmarks.add(Landmark(
+          point: value[i].point, name: value[i].name, id: value[i].id));
     }
     Provider.of<Markers>(context, listen: false).addMarkers(markers);
+
+    Provider.of<Landmarks>(context, listen: false).addLandmarks(landmarks);
     return;
   });
-  return;
 }
 
 Future<List> fetchLandmarkList() async {
-  final response =
-      await http.get(Uri.parse('http://192.168.1.109:3000/data/landmarks'));
+  final response = await http.get(Uri.parse('$apiDirection/data/landmarks'));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
@@ -89,14 +92,10 @@ Future<List> fetchLandmarkList() async {
   }
 }
 
-void getSpecialZone(BuildContext context) {
-  List<dynamic> specialZone = [];
-  List<dynamic> availableTrips = [];
-
-  fetchAvailableTrips().then((value) {
-    availableTrips = value;
+void getTripPolygon(BuildContext context) {
+  fetchAvailableTrips().then((availableTrips) {
     for (int i = 0; i < availableTrips.length; i++) {
-      fetchSpecialZone(availableTrips[i].lat, availableTrips[i].lng,
+      fetchTripPolygon(availableTrips[i].lat, availableTrips[i].lng,
               availableTrips[i].id)
           .then((trip) {
         List<LatLng> points = [];
@@ -130,9 +129,9 @@ void getSpecialZone(BuildContext context) {
   return;
 }
 
-Future<Trip> fetchSpecialZone(var lat, var lng, var id) async {
-  final response = await http.get(
-      Uri.parse('http://192.168.1.109:3000/polygon/generate/$lat/$lng/$id'));
+Future<Trip> fetchTripPolygon(var lat, var lng, var id) async {
+  final response =
+      await http.get(Uri.parse('$apiDirection/polygon/generate/$lat/$lng/$id'));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
@@ -143,7 +142,8 @@ Future<Trip> fetchSpecialZone(var lat, var lng, var id) async {
     var username = data['username'];
     var polyline = data['polyline']
         .map((element) => Position(lat: element[0], lng: element[1]))
-        .toList();
+        .toList()
+        .cast<List<Position>>();
 
     return Trip(polygon: polygon, username: username, polyline: polyline);
   } else {
@@ -154,14 +154,16 @@ Future<Trip> fetchSpecialZone(var lat, var lng, var id) async {
 }
 
 Future<List> fetchAvailableTrips() async {
-  final response =
-      await http.get(Uri.parse('http://192.168.1.109:3000/trip/available'));
+  final response = await http.get(Uri.parse('$apiDirection/trip/available'));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
     dynamic data = jsonDecode(response.body);
-    return data.map((element) => AvailableTrip.fromJson(element)).toList();
+    return data
+        .map((element) => AvailableTrip.fromJson(element))
+        .toList()
+        .cast<AvailableTrip>();
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.

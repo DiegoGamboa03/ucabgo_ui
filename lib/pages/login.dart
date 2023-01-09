@@ -5,9 +5,14 @@ String email = '';
 String password = '';
 
 ///Login de la App
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
 
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +60,7 @@ class Login extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/tripPage');
+                    Navigator.pushNamed(context, '/splashScreen');
                   },
                   child: const Text('Boton'),
                 ),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ucabgo_ui/classes/user.dart';
 import 'package:ucabgo_ui/components/icon_input.dart';
+import 'package:ucabgo_ui/components/icon_list.dart';
 import 'package:ucabgo_ui/components/user_card.dart';
+import 'package:ucabgo_ui/providers/landmarks_provider.dart';
 
 class DraggableScrollableSheetTrip extends StatefulWidget {
   const DraggableScrollableSheetTrip({super.key});
@@ -13,6 +16,8 @@ class DraggableScrollableSheetTrip extends StatefulWidget {
 
 class _DraggableScrollableSheetTripState
     extends State<DraggableScrollableSheetTrip> {
+  List<String> landmarksString = [];
+
   @override
   Widget build(BuildContext context) {
     var usersList = [
@@ -49,10 +54,15 @@ class _DraggableScrollableSheetTripState
                           )
                         ]),
                   ),
-                  const IconInput(
-                      labelText: '1', icon: Icons.addchart_outlined),
-                  const IconInput(
-                      labelText: '1', icon: Icons.addchart_outlined),
+                  IconList(
+                    labelText: 'Landmarks',
+                    icon: Icons.panorama_horizontal_outlined,
+                    list: context.watch<Landmarks>().getLandmarksNameList(),
+                  ),
+                  IconList(
+                      labelText: '1',
+                      icon: Icons.addchart_outlined,
+                      list: const ['Los patos', 'Modulo 3', 'Cancha']),
                   const IconInput(
                       labelText: '1', icon: Icons.addchart_outlined),
                   ListView.builder(

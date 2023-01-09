@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -16,13 +15,6 @@ class AppMap extends StatefulWidget {
 
 class _AppMapState extends State<AppMap> {
   late GoogleMapController mapController;
-
-  @override
-  void initState() {
-    super.initState();
-    getLandmarks(context);
-    getZones(context);
-  }
 
   @override
   Widget build(BuildContext context) {
