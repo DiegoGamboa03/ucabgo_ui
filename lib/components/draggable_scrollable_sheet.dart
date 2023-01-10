@@ -6,6 +6,8 @@ import 'package:ucabgo_ui/components/icon_list.dart';
 import 'package:ucabgo_ui/components/user_card.dart';
 import 'package:ucabgo_ui/providers/landmarks_provider.dart';
 
+import '../providers/trips_provider.dart';
+
 class DraggableScrollableSheetTrip extends StatefulWidget {
   const DraggableScrollableSheetTrip({super.key});
 
@@ -16,8 +18,6 @@ class DraggableScrollableSheetTrip extends StatefulWidget {
 
 class _DraggableScrollableSheetTripState
     extends State<DraggableScrollableSheetTrip> {
-  List<String> landmarksString = [];
-
   @override
   Widget build(BuildContext context) {
     var usersList = [
@@ -55,24 +55,24 @@ class _DraggableScrollableSheetTripState
                         ]),
                   ),
                   IconList(
-                    labelText: 'Landmarks',
+                    labelText: '¿A que lugar se dirigue?',
                     icon: Icons.panorama_horizontal_outlined,
                     list: context.watch<Landmarks>().getLandmarksNameList(),
                   ),
-                  IconList(
-                      labelText: '1',
-                      icon: Icons.addchart_outlined,
-                      list: const ['Los patos', 'Modulo 3', 'Cancha']),
-                  const IconInput(
-                      labelText: '1', icon: Icons.addchart_outlined),
-                  ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: 2,
-                    itemBuilder: (BuildContext context, int index) {
-                      return UserCard(user: usersList[index]);
-                    },
-                  ),
+                  Provider.of<Trips>(context, listen: false).trips.isNotEmpty
+                      ? ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: Provider.of<Trips>(context, listen: false)
+                              .trips
+                              .length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return TripCard(
+                                trip: Provider.of<Trips>(context, listen: false)
+                                    .trips[index]);
+                          },
+                        )
+                      : const Text('No hay viajes disponibles')
                 ],
               ),
             ),

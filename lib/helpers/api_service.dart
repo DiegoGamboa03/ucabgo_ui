@@ -9,10 +9,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ucabgo_ui/classes/available_trip.dart';
 import 'package:ucabgo_ui/classes/landmark.dart';
 import 'package:ucabgo_ui/classes/point.dart';
-import 'package:ucabgo_ui/classes/trip_polygon.dart';
+import 'package:ucabgo_ui/classes/trip.dart';
 import 'package:ucabgo_ui/classes/zone.dart';
 import 'package:ucabgo_ui/providers/landmarks_provider.dart';
 import 'package:ucabgo_ui/providers/polygons_provider.dart';
+import 'package:ucabgo_ui/providers/trips_provider.dart';
 
 import '../providers/markers_provider.dart';
 
@@ -119,6 +120,7 @@ void getTripPolygon(BuildContext context) {
         var contains = mp.PolygonUtil.containsLocation(point, polygon, false);
 
         if (contains) {
+          Provider.of<Trips>(context, listen: false).addTrip(trip);
           Provider.of<Polygons>(context, listen: false).addZone(routePolygon);
         }
 

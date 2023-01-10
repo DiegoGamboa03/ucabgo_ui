@@ -8,6 +8,8 @@ import '../classes/landmark.dart';
 class Landmarks with ChangeNotifier {
   final List<Landmark> _items = [];
 
+  final int selectedIndex = 0;
+
   List<Landmark> get landmarks => _items;
 
   void addLandmarks(List<Landmark> value) {

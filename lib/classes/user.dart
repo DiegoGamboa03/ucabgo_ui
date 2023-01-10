@@ -8,5 +8,5 @@ class User {
 
   ///TODO agregar campos que se extraigan de la base de datos
   ///
-  User({required this.id, required this.password, required this.name});
+  User({this.id = '0', this.password = '0', required this.name});
 }

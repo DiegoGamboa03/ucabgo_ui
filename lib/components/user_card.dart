@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:ucabgo_ui/classes/trip.dart';
 import 'package:ucabgo_ui/classes/user.dart';
 import 'package:ucabgo_ui/components/icon_text.dart';
 
 ///Widget para las tarjetas de usuario, permite mostrar la informacion del usuario
-class UserCard extends StatelessWidget {
-  final User user;
+class TripCard extends StatelessWidget {
+  final Trip trip;
 
-  const UserCard({super.key, required this.user});
+  const TripCard({super.key, required this.trip});
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +43,12 @@ class UserCard extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.all(15),
                   child: Column(children: [
-                    const FittedBox(
+                    FittedBox(
                       // hacer mas pruebas si esto realmente ayuda a escalar el texto
                       fit: BoxFit.contain,
                       child: Text(
-                        'Diego Alexander Gamboa Rojas',
-                        style: TextStyle(
+                        trip.username.toString(),
+                        style: const TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.black87,
                             fontSize: 14),

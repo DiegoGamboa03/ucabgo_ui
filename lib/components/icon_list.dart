@@ -41,7 +41,6 @@ class _IconListState extends State<IconList> {
             onChanged: (String? value) {
               setState(() {
                 selectedItem = value!;
-                print(selectedItem);
               });
             },
           ),
