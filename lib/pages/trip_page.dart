@@ -23,7 +23,7 @@ class TripPage extends StatelessWidget {
       TextButton(
           child: Text('Presiona para cargar el polygon'),
           onPressed: (() {
-            getTripPolygon(context);
+            // getTripPolygon(context);
           })),
       const DraggableScrollableSheetTrip()
     ]));

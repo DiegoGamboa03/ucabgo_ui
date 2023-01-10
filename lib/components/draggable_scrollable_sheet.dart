@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ucabgo_ui/classes/user.dart';
 import 'package:ucabgo_ui/components/icon_input.dart';
 import 'package:ucabgo_ui/components/icon_list.dart';
-import 'package:ucabgo_ui/components/user_card.dart';
+import 'package:ucabgo_ui/components/trip_card.dart';
 import 'package:ucabgo_ui/providers/landmarks_provider.dart';
 
+import '../helpers/api_service.dart';
 import '../providers/trips_provider.dart';
 
 class DraggableScrollableSheetTrip extends StatefulWidget {
@@ -18,13 +20,13 @@ class DraggableScrollableSheetTrip extends StatefulWidget {
 
 class _DraggableScrollableSheetTripState
     extends State<DraggableScrollableSheetTrip> {
+  String selectedItem = '';
+
   @override
   Widget build(BuildContext context) {
-    var usersList = [
-      User(id: '1', name: '1', password: '1'),
-      User(id: '2', name: '2', password: '2'),
-    ];
-
+    if (selectedItem == '') {
+      selectedItem = context.watch<Landmarks>().getLandmarksNameList().first;
+    }
     return DraggableScrollableSheet(
       minChildSize: 0.05,
       builder: (BuildContext context, ScrollController scrollController) {
@@ -54,10 +56,37 @@ class _DraggableScrollableSheetTripState
                           )
                         ]),
                   ),
-                  IconList(
-                    labelText: '¿A que lugar se dirigue?',
-                    icon: Icons.panorama_horizontal_outlined,
-                    list: context.watch<Landmarks>().getLandmarksNameList(),
+                  Container(
+                    margin: const EdgeInsets.all(10.0),
+                    child: Row(
+                      children: [
+                        const FaIcon(FontAwesomeIcons.locationDot),
+                        DropdownButton<String>(
+                          value: selectedItem,
+                          items: context
+                              .watch<Landmarks>()
+                              .getLandmarksNameList()
+                              .map<DropdownMenuItem<String>>((String? value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value!),
+                            );
+                          }).toList(),
+                          onChanged: (String? value) {
+                            setState(() {
+                              selectedItem = value!;
+                              var latlng =
+                                  Provider.of<Landmarks>(context, listen: false)
+                                      .getLandmarkPointFromName(selectedItem);
+                              if (latlng != null) {
+                                getTripPolygon(
+                                    context, latlng.latitude, latlng.longitude);
+                              }
+                            });
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                   Provider.of<Trips>(context, listen: false).trips.isNotEmpty
                       ? ListView.builder(

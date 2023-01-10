@@ -8,8 +8,6 @@ import '../classes/landmark.dart';
 class Landmarks with ChangeNotifier {
   final List<Landmark> _items = [];
 
-  final int selectedIndex = 0;
-
   List<Landmark> get landmarks => _items;
 
   void addLandmarks(List<Landmark> value) {
@@ -24,5 +22,14 @@ class Landmarks with ChangeNotifier {
       list.add(_items[i].name);
     }
     return list;
+  }
+
+  LatLng? getLandmarkPointFromName(String name) {
+    for (int i = 0; i < _items.length; i++) {
+      if (_items[i].name == name) {
+        return _items[i].point;
+      }
+    }
+    return null;
   }
 }

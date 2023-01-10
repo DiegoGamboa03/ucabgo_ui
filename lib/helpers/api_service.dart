@@ -93,7 +93,9 @@ Future<List> fetchLandmarkList() async {
   }
 }
 
-void getTripPolygon(BuildContext context) {
+void getTripPolygon(BuildContext context, double lat, double lng) {
+  var destinationLat = lat;
+  var destinationLng = lng;
   fetchAvailableTrips().then((availableTrips) {
     for (int i = 0; i < availableTrips.length; i++) {
       fetchTripPolygon(availableTrips[i].lat, availableTrips[i].lng,
@@ -115,7 +117,7 @@ void getTripPolygon(BuildContext context) {
           strokeWidth: 4,
         );
 
-        var point = mp.LatLng(8.2998008, -62.7298523);
+        var point = mp.LatLng(destinationLat, destinationLng);
 
         var contains = mp.PolygonUtil.containsLocation(point, polygon, false);
 
