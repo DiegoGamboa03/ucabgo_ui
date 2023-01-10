@@ -1,8 +1,6 @@
-import 'package:cupertino_icons/cupertino_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 ///Registro de la App si el rol es Profesor o Trabajador
 class RegisterPageOther extends StatefulWidget {
@@ -291,7 +289,7 @@ class _RegisterPageOtherState extends State<RegisterPageOther> {
                   ]),
                   height: 50,
                   child: FormHelper.submitButton(
-                    "Volver",
+                    "◁ Volver",
                     () {
                       Navigator.pushNamed(context, '/register');
                     },

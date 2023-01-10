@@ -1,8 +1,7 @@
-import 'package:cupertino_icons/cupertino_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 ///Login de la App
 class LoginPage extends StatefulWidget {
@@ -69,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ],
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(20.0),
             child: Text(
               'Ingresa tus datos',

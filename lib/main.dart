@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '/pages/login_page.dart';
 import '/pages/trip_page.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       theme: ThemeData(
+          textTheme: GoogleFonts.latoTextTheme(),
           brightness: Brightness.light,
           primaryColor: Color.fromARGB(255, 21, 102, 170)),
       routes: {

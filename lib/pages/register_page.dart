@@ -1,8 +1,7 @@
-import 'package:cupertino_icons/cupertino_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 ///Registro de la App
 class RegisterPage extends StatefulWidget {
@@ -382,7 +381,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ]),
                   height: 50,
                   child: FormHelper.submitButton(
-                    "Siguiente",
+                    "Siguiente ▷",
                     () {
                       if (role == "1") {
                         if (validateAndSave()) {
