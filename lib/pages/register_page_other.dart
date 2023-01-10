@@ -2,6 +2,7 @@ import 'package:cupertino_icons/cupertino_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 ///Registro de la App si el rol es Profesor o Trabajador
 class RegisterPageOther extends StatefulWidget {
@@ -24,15 +25,29 @@ class _RegisterPageOtherState extends State<RegisterPageOther> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 199, 223, 235),
-        body: ProgressHUD(
-          child: Form(
-            key: globalFormKey,
-            child: _registerUI(context),
+        body: Container(
+          height: double.infinity,
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0x66bcd5b8),
+                  Color(0x99bcd5b8),
+                  Color(0xccbcd5b8),
+                  Color(0xffbcd5b8),
+                ]),
           ),
-          inAsyncCall: isAPIcallProcess,
-          opacity: 0.3,
-          key: UniqueKey(),
+          child: ProgressHUD(
+            child: Form(
+              key: globalFormKey,
+              child: _registerUI(context),
+            ),
+            inAsyncCall: isAPIcallProcess,
+            opacity: 0.3,
+            key: UniqueKey(),
+          ),
         ),
       ),
     );
@@ -43,35 +58,18 @@ class _RegisterPageOtherState extends State<RegisterPageOther> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 5,
-            decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.white,
-                    Colors.white,
-                  ],
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Image.asset(
+                  'images/logo.png',
+                  height: 200,
+                  fit: BoxFit.contain,
                 ),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(40),
-                  bottomRight: Radius.circular(40),
-                )),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    'images/logo.png',
-                    height: 200,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
           Padding(
             padding: EdgeInsets.all(20.0),
@@ -84,145 +82,255 @@ class _RegisterPageOtherState extends State<RegisterPageOther> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: FormHelper.inputFieldWidget(
-              context,
-              "phoneNumber",
-              "Número de Teléfono",
-              (onValidateVal) {
-                if (onValidateVal.isEmpty) {
-                  return "El número de teléfono no puede estar vacío.";
-                }
-                return null;
-              },
-              (onSavedVal) {
-                phoneNumber = onSavedVal;
-              },
-              prefixIcon: const Icon(Icons.phone_outlined),
-              showPrefixIcon: true,
-              prefixIconPaddingLeft: 20,
-              backgroundColor: Colors.white,
-              borderFocusColor: Colors.green,
-              prefixIconColor: Colors.green,
-              borderColor: Colors.green,
-              textColor: Colors.grey,
-              hintColor: Colors.grey.withOpacity(0.7),
-              borderRadius: 10,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: FormHelper.inputFieldWidget(
-              context,
-              "twitter",
-              "Twitter",
-              (onValidateVal) {},
-              (onSavedVal) {
-                twitter = onSavedVal;
-              },
-              prefixIcon: const Icon(Icons.alternate_email_outlined),
-              showPrefixIcon: true,
-              prefixIconPaddingLeft: 20,
-              backgroundColor: Colors.white,
-              borderFocusColor: Colors.green,
-              prefixIconColor: Colors.green,
-              borderColor: Colors.green,
-              textColor: Colors.grey,
-              hintColor: Colors.grey.withOpacity(0.7),
-              borderRadius: 10,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: FormHelper.inputFieldWidget(
-              context,
-              "instagram",
-              "Instagram",
-              (onValidateVal) {},
-              (onSavedVal) {
-                instagram = onSavedVal;
-              },
-              prefixIcon: const Icon(Icons.camera_alt_outlined),
-              showPrefixIcon: true,
-              prefixIconPaddingLeft: 20,
-              backgroundColor: Colors.white,
-              borderFocusColor: Colors.green,
-              prefixIconColor: Colors.green,
-              borderColor: Colors.green,
-              textColor: Colors.grey,
-              hintColor: Colors.grey.withOpacity(0.7),
-              borderRadius: 10,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: FormHelper.inputFieldWidget(
-              context,
-              "password",
-              "Contraseña",
-              (onValidateVal) {
-                if (onValidateVal.isEmpty) {
-                  return "La contraseña no puede estar vacía.";
-                }
-                return null;
-              },
-              (onSavedVal) {
-                password = onSavedVal;
-              },
-              prefixIcon: const Icon(Icons.lock_outlined),
-              showPrefixIcon: true,
-              prefixIconPaddingLeft: 20,
-              backgroundColor: Colors.white,
-              borderFocusColor: Colors.green,
-              prefixIconColor: Colors.green,
-              borderColor: Colors.green,
-              textColor: Colors.grey,
-              hintColor: Colors.grey.withOpacity(0.7),
-              borderRadius: 10,
-              obscureText: hidePassword,
-              suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      hidePassword = !hidePassword;
-                    });
+          Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 6,
+                      offset: Offset(0, 2),
+                    )
+                  ]),
+                  height: 50,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: FormHelper.inputFieldWidget(
+                  context,
+                  "phoneNumber",
+                  "Número de Teléfono",
+                  (onValidateVal) {
+                    if (onValidateVal.isEmpty) {
+                      return "El número de teléfono no puede estar vacío.";
+                    }
+                    return null;
                   },
-                  color: Colors.grey.withOpacity(0.7),
-                  icon: Icon(
-                      hidePassword ? Icons.visibility_off : Icons.visibility)),
-            ),
+                  (onSavedVal) {
+                    phoneNumber = onSavedVal;
+                  },
+                  fontSize: 30,
+                  hintFontSize: 25,
+                  paddingLeft: 0,
+                  paddingRight: 0,
+                  prefixIcon: const Icon(Icons.phone_outlined),
+                  showPrefixIcon: true,
+                  prefixIconPaddingLeft: 20,
+                  backgroundColor: Colors.white,
+                  borderFocusColor: Colors.green,
+                  prefixIconColor: Colors.green,
+                  borderColor: Colors.green,
+                  textColor: Colors.grey,
+                  hintColor: Colors.grey.withOpacity(0.7),
+                  borderRadius: 10,
+                  isNumeric: true,
+                ),
+              ),
+            ],
+          ),
+          Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 6,
+                      offset: Offset(0, 2),
+                    )
+                  ]),
+                  height: 50,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: FormHelper.inputFieldWidget(
+                  context,
+                  "twitter",
+                  "Twitter",
+                  (onValidateVal) {},
+                  (onSavedVal) {
+                    twitter = onSavedVal;
+                  },
+                  fontSize: 30,
+                  hintFontSize: 25,
+                  paddingLeft: 0,
+                  paddingRight: 0,
+                  prefixIcon: const Icon(Icons.alternate_email_outlined),
+                  showPrefixIcon: true,
+                  prefixIconPaddingLeft: 20,
+                  backgroundColor: Colors.white,
+                  borderFocusColor: Colors.green,
+                  prefixIconColor: Colors.green,
+                  borderColor: Colors.green,
+                  textColor: Colors.grey,
+                  hintColor: Colors.grey.withOpacity(0.7),
+                  borderRadius: 10,
+                ),
+              ),
+            ],
+          ),
+          Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 6,
+                      offset: Offset(0, 2),
+                    )
+                  ]),
+                  height: 50,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: FormHelper.inputFieldWidget(
+                  context,
+                  "instagram",
+                  "Instagram",
+                  (onValidateVal) {},
+                  (onSavedVal) {
+                    instagram = onSavedVal;
+                  },
+                  fontSize: 30,
+                  hintFontSize: 25,
+                  paddingLeft: 0,
+                  paddingRight: 0,
+                  prefixIcon: const Icon(Icons.camera_alt_outlined),
+                  showPrefixIcon: true,
+                  prefixIconPaddingLeft: 20,
+                  backgroundColor: Colors.white,
+                  borderFocusColor: Colors.green,
+                  prefixIconColor: Colors.green,
+                  borderColor: Colors.green,
+                  textColor: Colors.grey,
+                  hintColor: Colors.grey.withOpacity(0.7),
+                  borderRadius: 10,
+                ),
+              ),
+            ],
+          ),
+          Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 6,
+                      offset: Offset(0, 2),
+                    )
+                  ]),
+                  height: 50,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: FormHelper.inputFieldWidget(
+                  context,
+                  "password",
+                  "Contraseña",
+                  (onValidateVal) {
+                    if (onValidateVal.isEmpty) {
+                      return "La contraseña no puede estar vacía.";
+                    }
+                    return null;
+                  },
+                  (onSavedVal) {
+                    password = onSavedVal;
+                  },
+                  fontSize: 30,
+                  hintFontSize: 25,
+                  paddingLeft: 0,
+                  paddingRight: 0,
+                  prefixIcon: const Icon(Icons.lock_outlined),
+                  showPrefixIcon: true,
+                  prefixIconPaddingLeft: 20,
+                  backgroundColor: Colors.white,
+                  borderFocusColor: Colors.green,
+                  prefixIconColor: Colors.green,
+                  borderColor: Colors.green,
+                  textColor: Colors.grey,
+                  hintColor: Colors.grey.withOpacity(0.7),
+                  borderRadius: 10,
+                  obscureText: hidePassword,
+                  suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          hidePassword = !hidePassword;
+                        });
+                      },
+                      color: Colors.grey.withOpacity(0.7),
+                      icon: Icon(hidePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility)),
+                ),
+              ),
+            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: FormHelper.submitButton(
-                  "Volver",
-                  () {
-                    Navigator.pushNamed(context, '/register');
-                  },
-                  height: 60,
-                  width: 150,
-                  btnColor: Colors.green,
-                  borderColor: Colors.white,
-                  txtColor: Colors.white,
-                  borderRadius: 15,
+                padding: const EdgeInsets.only(left: 10.0),
+                child: Container(
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 6,
+                      offset: Offset(0, 2),
+                    )
+                  ]),
+                  height: 50,
+                  child: FormHelper.submitButton(
+                    "Volver",
+                    () {
+                      Navigator.pushNamed(context, '/register');
+                    },
+                    height: 60,
+                    width: 150,
+                    fontSize: 24,
+                    btnColor: Colors.green,
+                    borderColor: Colors.green,
+                    txtColor: Colors.white,
+                    borderRadius: 15,
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 30.0),
-                child: FormHelper.submitButton(
-                  "Registrate",
-                  () {
-                    Navigator.pushNamed(context, '/');
-                  },
-                  height: 60,
-                  width: 150,
-                  btnColor: Colors.green,
-                  borderColor: Colors.white,
-                  txtColor: Colors.white,
-                  borderRadius: 15,
+                padding: const EdgeInsets.only(right: 10.0),
+                child: Container(
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 6,
+                      offset: Offset(0, 2),
+                    )
+                  ]),
+                  height: 50,
+                  child: FormHelper.submitButton(
+                    "Registrate",
+                    () {
+                      if (validateAndSave()) {
+                        Navigator.pushNamed(context, '/');
+                      }
+                    },
+                    height: 60,
+                    width: 150,
+                    fontSize: 24,
+                    btnColor: Colors.green,
+                    borderColor: Colors.green,
+                    txtColor: Colors.white,
+                    borderRadius: 15,
+                  ),
                 ),
               ),
             ],
@@ -233,6 +341,7 @@ class _RegisterPageOtherState extends State<RegisterPageOther> {
               Text(
                 '¿Ya estas registrado?',
                 style: TextStyle(
+                  fontSize: 18,
                   color: Colors.grey,
                 ),
               ),
@@ -245,6 +354,7 @@ class _RegisterPageOtherState extends State<RegisterPageOther> {
                   child: const Text(
                     'Inicia Sesión',
                     style: TextStyle(
+                      fontSize: 18,
                       decoration: TextDecoration.underline,
                       color: Colors.grey,
                     ),
@@ -256,5 +366,15 @@ class _RegisterPageOtherState extends State<RegisterPageOther> {
         ],
       ),
     );
+  }
+
+  bool validateAndSave() {
+    final form = globalFormKey.currentState;
+    if (form!.validate()) {
+      form.save();
+      return true;
+    } else {
+      return false;
+    }
   }
 }
