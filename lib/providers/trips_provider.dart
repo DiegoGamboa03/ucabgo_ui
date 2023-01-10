@@ -5,11 +5,12 @@ import 'package:ucabgo_ui/classes/trip.dart';
 import 'package:ucabgo_ui/classes/zone.dart';
 
 class Trips with ChangeNotifier {
-  final List<Trip> _trips = [];
+  List<Trip> _trips = [];
 
   List<Trip> get trips => _trips;
 
   void addTrip(Trip value) {
+    _trips = [];
     _trips.add(value);
     notifyListeners();
   }

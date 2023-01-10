@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ucabgo_ui/providers/markers_provider.dart';
+import 'package:ucabgo_ui/providers/polylines_provider.dart';
 import '../helpers/map_helpers.dart';
 import '../providers/polygons_provider.dart';
 
@@ -27,6 +28,7 @@ class _AppMapState extends State<AppMap> {
           zoom: 17, target: LatLng(8.296805712036571, -62.71160479227906)),
       polygons: context.watch<Polygons>().polygons,
       markers: context.watch<Markers>().markers,
+      polylines: context.watch<Polylines>().polylines,
     );
   }
 }

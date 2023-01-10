@@ -13,6 +13,7 @@ import 'package:ucabgo_ui/classes/trip.dart';
 import 'package:ucabgo_ui/classes/zone.dart';
 import 'package:ucabgo_ui/providers/landmarks_provider.dart';
 import 'package:ucabgo_ui/providers/polygons_provider.dart';
+import 'package:ucabgo_ui/providers/polylines_provider.dart';
 import 'package:ucabgo_ui/providers/trips_provider.dart';
 
 import '../providers/markers_provider.dart';
@@ -102,28 +103,28 @@ void getTripPolygon(BuildContext context, double lat, double lng) {
               availableTrips[i].id)
           .then((trip) {
         List<LatLng> points = [];
+
+        for (int i = 0; i < trip.polyline.length; i++) {
+          points.add(LatLng(trip.polyline[i].lat, trip.polyline[i].lng));
+        }
+
         List<mp.LatLng> polygon = [];
+
         for (int i = 0; i < trip.polygon.length; i++) {
-          points.add(trip.polygon[i].point);
           polygon.add(mp.LatLng(trip.polygon[i].lat, trip.polygon[i].lng));
         }
 
-        var routePolygon = Polygon(
-          polygonId: PolygonId(trip.username),
-          points: points,
-          fillColor: Colors.black.withOpacity(0.3),
-          strokeColor: Colors.red,
-          geodesic: true,
-          strokeWidth: 4,
-        );
-
+        var polyline = Polyline(
+            polylineId: PolylineId(trip.username),
+            points: points,
+            color: Colors.red);
         var point = mp.LatLng(destinationLat, destinationLng);
 
         var contains = mp.PolygonUtil.containsLocation(point, polygon, false);
 
         if (contains) {
           Provider.of<Trips>(context, listen: false).addTrip(trip);
-          Provider.of<Polygons>(context, listen: false).addZone(routePolygon);
+          Provider.of<Polylines>(context, listen: false).addPolyline(polyline);
         }
 
         return;
@@ -146,8 +147,7 @@ Future<Trip> fetchTripPolygon(var lat, var lng, var id) async {
     var username = data['username'];
     var polyline = data['polyline']
         .map((element) => Position(lat: element[0], lng: element[1]))
-        .toList()
-        .cast<List<Position>>();
+        .toList();
 
     return Trip(polygon: polygon, username: username, polyline: polyline);
   } else {

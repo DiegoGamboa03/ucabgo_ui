@@ -6,6 +6,7 @@ import 'package:ucabgo_ui/pages/trip_page.dart';
 import 'package:ucabgo_ui/providers/landmarks_provider.dart';
 import 'package:ucabgo_ui/providers/markers_provider.dart';
 import 'package:ucabgo_ui/providers/polygons_provider.dart';
+import 'package:ucabgo_ui/providers/polylines_provider.dart';
 import 'package:ucabgo_ui/providers/trips_provider.dart';
 
 void main() {
@@ -14,6 +15,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => Markers()),
         ChangeNotifierProvider(create: (_) => Polygons()),
+        ChangeNotifierProvider(create: (_) => Polylines()),
         ChangeNotifierProvider(create: (_) => Landmarks()),
         ChangeNotifierProvider(create: (_) => Trips()),
       ],
