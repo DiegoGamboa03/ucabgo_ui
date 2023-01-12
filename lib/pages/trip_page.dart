@@ -15,17 +15,8 @@ class TripPage extends StatelessWidget {
     // ignore: unused_local_variable
     final height = MediaQuery.of(context).size.height;
 
-    GoogleMapController mapController;
-
     return Scaffold(
-        body: Stack(children: [
-      const AppMap(),
-      TextButton(
-          child: Text('Presiona para cargar el polygon'),
-          onPressed: (() {
-            // getTripPolygon(context);
-          })),
-      const DraggableScrollableSheetTrip()
-    ]));
+        body:
+            Stack(children: const [AppMap(), DraggableScrollableSheetTrip()]));
   }
 }

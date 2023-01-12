@@ -6,6 +6,7 @@ import 'package:ucabgo_ui/components/icon_input.dart';
 import 'package:ucabgo_ui/components/icon_list.dart';
 import 'package:ucabgo_ui/components/trip_card.dart';
 import 'package:ucabgo_ui/providers/landmarks_provider.dart';
+import 'package:ucabgo_ui/providers/polylines_provider.dart';
 
 import '../helpers/api_service.dart';
 import '../providers/trips_provider.dart';
@@ -74,6 +75,10 @@ class _DraggableScrollableSheetTripState
                           }).toList(),
                           onChanged: (String? value) {
                             setState(() {
+                              /*Provider.of<Polylines>(context, listen: false)
+                                  .erasePolyline();*/
+                              Provider.of<Trips>(context, listen: false)
+                                  .eraseTrip();
                               selectedItem = value!;
                               var latlng =
                                   Provider.of<Landmarks>(context, listen: false)
@@ -88,17 +93,23 @@ class _DraggableScrollableSheetTripState
                       ],
                     ),
                   ),
-                  Provider.of<Trips>(context, listen: false).trips.isNotEmpty
+                  Provider.of<Trips>(context, listen: true).trips.isNotEmpty
                       ? ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: Provider.of<Trips>(context, listen: false)
+                          itemCount: Provider.of<Trips>(context, listen: true)
                               .trips
                               .length,
                           itemBuilder: (BuildContext context, int index) {
-                            return TripCard(
-                                trip: Provider.of<Trips>(context, listen: false)
-                                    .trips[index]);
+                            if (Provider.of<Trips>(context, listen: false)
+                                .trips
+                                .isNotEmpty) {
+                              return TripCard(
+                                  trip:
+                                      Provider.of<Trips>(context, listen: true)
+                                          .trips[index]);
+                            }
+                            return Container();
                           },
                         )
                       : const Text('No hay viajes disponibles')

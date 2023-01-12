@@ -13,4 +13,9 @@ class Polylines with ChangeNotifier {
     _polylines.add(value);
     notifyListeners();
   }
+
+  void erasePolyline() {
+    _polylines = <Polyline>{};
+    notifyListeners();
+  }
 }

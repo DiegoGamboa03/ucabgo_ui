@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:ucabgo_ui/classes/trip.dart';
 import 'package:ucabgo_ui/classes/user.dart';
 import 'package:ucabgo_ui/components/icon_text.dart';
+
+import '../providers/polylines_provider.dart';
 
 ///Widget para las tarjetas de usuario, permite mostrar la informacion del usuario
 class TripCard extends StatelessWidget {
@@ -13,9 +17,9 @@ class TripCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+    int timesPressed = 0;
 
     return Container(
-      //Contenedor externo para margenes con otros elementos
       margin: EdgeInsets.only(
           top: height * 0.01, right: width * 0.025, left: width * 0.025),
       child: ClipRRect(
@@ -25,7 +29,27 @@ class TripCard extends StatelessWidget {
           //Color
           color: Colors.lightGreen,
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              timesPressed++;
+              if (timesPressed == 1) {
+                List<LatLng> points = [];
+                for (int i = 0; i < trip.polyline.length; i++) {
+                  points
+                      .add(LatLng(trip.polyline[i].lat, trip.polyline[i].lng));
+                }
+                var polyline = Polyline(
+                    polylineId: PolylineId(trip.username),
+                    points: points,
+                    color: Colors.red);
+
+                Provider.of<Polylines>(context, listen: false)
+                    .addPolyline(polyline);
+                //Quiero que muestre el poligono
+              } else if (timesPressed == 2) {
+              } else {
+                timesPressed = 0;
+              }
+            },
             child: Container(
               color: Colors.transparent,
               height: height * 0.1,

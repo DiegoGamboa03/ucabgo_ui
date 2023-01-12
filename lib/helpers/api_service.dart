@@ -124,7 +124,7 @@ void getTripPolygon(BuildContext context, double lat, double lng) {
 
         if (contains) {
           Provider.of<Trips>(context, listen: false).addTrip(trip);
-          Provider.of<Polylines>(context, listen: false).addPolyline(polyline);
+          //Provider.of<Polylines>(context, listen: false).addPolyline(polyline);
         }
 
         return;

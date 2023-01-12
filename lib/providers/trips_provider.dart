@@ -10,8 +10,12 @@ class Trips with ChangeNotifier {
   List<Trip> get trips => _trips;
 
   void addTrip(Trip value) {
-    _trips = [];
     _trips.add(value);
+    notifyListeners();
+  }
+
+  void eraseTrip() {
+    _trips = [];
     notifyListeners();
   }
 }
