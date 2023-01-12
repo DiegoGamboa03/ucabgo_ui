@@ -1,17 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:ucabgo_ui/classes/user.dart';
 import 'package:ucabgo_ui/components/draggable_scrollable_sheet_rider.dart';
-import 'package:ucabgo_ui/components/icon_input.dart';
-import 'package:ucabgo_ui/components/icon_list.dart';
-import 'package:ucabgo_ui/components/trip_card.dart';
 import 'package:ucabgo_ui/providers/landmarks_provider.dart';
-import 'package:ucabgo_ui/providers/polylines_provider.dart';
 import 'package:ucabgo_ui/providers/trip_type_provider.dart';
-
-import '../helpers/api_service.dart';
-import '../providers/trips_provider.dart';
 import 'draggable_scrollable_sheet_passenger.dart';
 
 class DraggableScrollableSheetTrip extends StatefulWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:ucabgo_ui/components/rider_passenger_button.dart';
 import '../components/draggable_scrollable_sheet.dart';
 import '../components/map.dart';
 import '../helpers/api_service.dart';
@@ -16,7 +17,10 @@ class TripPage extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-        body:
-            Stack(children: const [AppMap(), DraggableScrollableSheetTrip()]));
+        body: Stack(children: const [
+      AppMap(),
+      RiderPassengerButton(),
+      DraggableScrollableSheetTrip()
+    ]));
   }
 }

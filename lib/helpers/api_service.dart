@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:async';
-import 'dart:io';
 import 'package:provider/provider.dart';
 import 'package:maps_toolkit/maps_toolkit.dart' as mp;
 import 'package:http/http.dart' as http;
@@ -13,7 +12,6 @@ import 'package:ucabgo_ui/classes/trip.dart';
 import 'package:ucabgo_ui/classes/zone.dart';
 import 'package:ucabgo_ui/providers/landmarks_provider.dart';
 import 'package:ucabgo_ui/providers/polygons_provider.dart';
-import 'package:ucabgo_ui/providers/polylines_provider.dart';
 import 'package:ucabgo_ui/providers/trips_provider.dart';
 
 import '../providers/markers_provider.dart';
