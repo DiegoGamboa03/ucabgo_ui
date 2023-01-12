@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ucabgo_ui/classes/user.dart';
+import 'package:ucabgo_ui/components/draggable_scrollable_sheet_rider.dart';
 import 'package:ucabgo_ui/components/icon_input.dart';
 import 'package:ucabgo_ui/components/icon_list.dart';
 import 'package:ucabgo_ui/components/trip_card.dart';
 import 'package:ucabgo_ui/providers/landmarks_provider.dart';
 import 'package:ucabgo_ui/providers/polylines_provider.dart';
+import 'package:ucabgo_ui/providers/trip_type_provider.dart';
 
 import '../helpers/api_service.dart';
 import '../providers/trips_provider.dart';
+import 'draggable_scrollable_sheet_passenger.dart';
 
 class DraggableScrollableSheetTrip extends StatefulWidget {
   const DraggableScrollableSheetTrip({super.key});
@@ -57,62 +60,9 @@ class _DraggableScrollableSheetTripState
                           )
                         ]),
                   ),
-                  Container(
-                    margin: const EdgeInsets.all(10.0),
-                    child: Row(
-                      children: [
-                        const FaIcon(FontAwesomeIcons.locationDot),
-                        DropdownButton<String>(
-                          value: selectedItem,
-                          items: context
-                              .watch<Landmarks>()
-                              .getLandmarksNameList()
-                              .map<DropdownMenuItem<String>>((String? value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value!),
-                            );
-                          }).toList(),
-                          onChanged: (String? value) {
-                            setState(() {
-                              /*Provider.of<Polylines>(context, listen: false)
-                                  .erasePolyline();*/
-                              Provider.of<Trips>(context, listen: false)
-                                  .eraseTrip();
-                              selectedItem = value!;
-                              var latlng =
-                                  Provider.of<Landmarks>(context, listen: false)
-                                      .getLandmarkPointFromName(selectedItem);
-                              if (latlng != null) {
-                                getTripPolygon(
-                                    context, latlng.latitude, latlng.longitude);
-                              }
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  Provider.of<Trips>(context, listen: true).trips.isNotEmpty
-                      ? ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: Provider.of<Trips>(context, listen: true)
-                              .trips
-                              .length,
-                          itemBuilder: (BuildContext context, int index) {
-                            if (Provider.of<Trips>(context, listen: false)
-                                .trips
-                                .isNotEmpty) {
-                              return TripCard(
-                                  trip:
-                                      Provider.of<Trips>(context, listen: true)
-                                          .trips[index]);
-                            }
-                            return Container();
-                          },
-                        )
-                      : const Text('No hay viajes disponibles')
+                  context.watch<TripType>().tripType == 'passenger'
+                      ? const DraggableScrollableSheetPassenger()
+                      : const DraggableScrollableSheetRider()
                 ],
               ),
             ),
