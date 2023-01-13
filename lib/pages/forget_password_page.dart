@@ -3,19 +3,19 @@ import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 
 ///Login de la App
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class ForgetPasswordPage extends StatefulWidget {
+  const ForgetPasswordPage({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _ForgetPasswordPageState createState() => _ForgetPasswordPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
   bool isAPIcallProcess = false;
   bool hidePassword = true;
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
-  String? email;
   String? password;
+  String? confirmPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -70,61 +70,13 @@ class _LoginPageState extends State<LoginPage> {
           Padding(
             padding: EdgeInsets.all(5.0),
             child: Text(
-              'Ingresa tus datos',
+              'Ingresa contraseña nueva',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 30,
                 color: Colors.grey,
               ),
             ),
-          ),
-          Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  decoration: BoxDecoration(boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 6,
-                      offset: Offset(0, 2),
-                    )
-                  ]),
-                  height: 50,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: FormHelper.inputFieldWidget(
-                  context,
-                  "email",
-                  "Correo UCAB",
-                  (onValidateVal) {
-                    if (onValidateVal.isEmpty) {
-                      return "El correo no puede estar vacío.";
-                    }
-                    return null;
-                  },
-                  (onSavedVal) {
-                    email = onSavedVal;
-                  },
-                  fontSize: 30,
-                  hintFontSize: 25,
-                  paddingLeft: 0,
-                  paddingRight: 0,
-                  prefixIcon: const Icon(Icons.email_outlined),
-                  showPrefixIcon: true,
-                  prefixIconPaddingLeft: 20,
-                  backgroundColor: Colors.white,
-                  borderFocusColor: Colors.green,
-                  prefixIconColor: Colors.green,
-                  borderColor: Colors.green,
-                  textColor: Colors.grey,
-                  hintColor: Colors.grey.withOpacity(0.7),
-                  borderRadius: 10,
-                ),
-              ),
-            ],
           ),
           Stack(
             children: [
@@ -185,23 +137,61 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
+          Stack(
+            children: [
               Padding(
-                padding: const EdgeInsets.only(left: 5.0, bottom: 5.0),
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/forgetPasswordPage');
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 6,
+                      offset: Offset(0, 2),
+                    )
+                  ]),
+                  height: 50,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: FormHelper.inputFieldWidget(
+                  context,
+                  "confirmPassword",
+                  "Confirma la Contraseña",
+                  (onValidateVal) {
+                    if (onValidateVal.isEmpty) {
+                      return "La contraseña no puede estar vacía.";
+                    }
+                    return null;
                   },
-                  child: const Text(
-                    '¿Olvidó la contraseña?',
-                    style: TextStyle(
-                      fontSize: 18,
-                      decoration: TextDecoration.underline,
-                      color: Colors.grey,
-                    ),
-                  ),
+                  (onSavedVal) {
+                    password = onSavedVal;
+                  },
+                  fontSize: 30,
+                  hintFontSize: 25,
+                  paddingLeft: 0,
+                  paddingRight: 0,
+                  prefixIcon: const Icon(Icons.lock_outlined),
+                  showPrefixIcon: true,
+                  prefixIconPaddingLeft: 20,
+                  backgroundColor: Colors.white,
+                  borderFocusColor: Colors.green,
+                  prefixIconColor: Colors.green,
+                  borderColor: Colors.green,
+                  textColor: Colors.grey,
+                  hintColor: Colors.grey.withOpacity(0.7),
+                  borderRadius: 10,
+                  obscureText: hidePassword,
+                  suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          hidePassword = !hidePassword;
+                        });
+                      },
+                      color: Colors.grey.withOpacity(0.7),
+                      icon: Icon(hidePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility)),
                 ),
               ),
             ],
@@ -216,14 +206,14 @@ class _LoginPageState extends State<LoginPage> {
             ]),
             height: 50,
             child: FormHelper.submitButton(
-              "Inicia Sesión",
+              "Guardar Contraseña",
               () {
                 if (validateAndSave()) {
-                  Navigator.pushNamed(context, '/tripPage');
+                  Navigator.pushNamed(context, '/');
                 }
               },
               height: 60,
-              width: 200,
+              width: 250,
               fontSize: 26,
               fontWeight: FontWeight.bold,
               btnColor: Colors.green,
@@ -231,34 +221,6 @@ class _LoginPageState extends State<LoginPage> {
               txtColor: Colors.white,
               borderRadius: 15,
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                '¿No estas registrado?',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.grey,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/register');
-                  },
-                  child: const Text(
-                    'Registrate',
-                    style: TextStyle(
-                      fontSize: 18,
-                      decoration: TextDecoration.underline,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-              ),
-            ],
           ),
         ],
       ),

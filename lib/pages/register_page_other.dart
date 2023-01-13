@@ -3,14 +3,14 @@ import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 
 ///Registro de la App si el rol es Profesor o Trabajador
-class RegisterPageOther extends StatefulWidget {
-  const RegisterPageOther({super.key});
+class RegisterOtherPage extends StatefulWidget {
+  const RegisterOtherPage({super.key});
 
   @override
-  _RegisterPageOtherState createState() => _RegisterPageOtherState();
+  _RegisterOtherPageState createState() => _RegisterOtherPageState();
 }
 
-class _RegisterPageOtherState extends State<RegisterPageOther> {
+class _RegisterOtherPageState extends State<RegisterOtherPage> {
   bool isAPIcallProcess = false;
   bool hidePassword = true;
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
@@ -40,7 +40,7 @@ class _RegisterPageOtherState extends State<RegisterPageOther> {
           child: ProgressHUD(
             child: Form(
               key: globalFormKey,
-              child: _registerUI(context),
+              child: _registerStudentUI(context),
             ),
             inAsyncCall: isAPIcallProcess,
             opacity: 0.3,
@@ -51,7 +51,7 @@ class _RegisterPageOtherState extends State<RegisterPageOther> {
     );
   }
 
-  Widget _registerUI(BuildContext context) {
+  Widget _registerStudentUI(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -318,7 +318,7 @@ class _RegisterPageOtherState extends State<RegisterPageOther> {
                     "Registrate",
                     () {
                       if (validateAndSave()) {
-                        Navigator.pushNamed(context, '/');
+                        openDialog();
                       }
                     },
                     height: 60,
@@ -375,4 +375,21 @@ class _RegisterPageOtherState extends State<RegisterPageOther> {
       return false;
     }
   }
+
+  Future openDialog() => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Se ha registrado satifactoriamente'),
+          content: Text('Por favor inicia sesión'),
+          actions: [
+            OutlinedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.pushNamed(context, '/');
+              },
+              child: Text('Aceptar'),
+            ),
+          ],
+        ),
+      );
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 
 ///Registro de la App
 class RegisterPage extends StatefulWidget {
@@ -208,11 +208,11 @@ class _RegisterPageState extends State<RegisterPage> {
               padding: const EdgeInsets.all(10.0),
               child: FormHelper.inputFieldWidget(
                 context,
-                "age",
-                "Edad",
+                "date",
+                "Fecha de Nacimiento",
                 (onValidateVal) {
                   if (onValidateVal.isEmpty) {
-                    return "La edad no puede estar vacía.";
+                    return "La fecha de nacimiento no puede estar vacía.";
                   }
                   return null;
                 },
@@ -224,7 +224,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 hintFontSize: 25,
                 paddingLeft: 0,
                 paddingRight: 0,
-                prefixIcon: const Icon(Icons.accessibility_outlined),
+                prefixIcon: const Icon(Icons.calendar_today_outlined),
                 showPrefixIcon: true,
                 prefixIconPaddingLeft: 20,
                 backgroundColor: Colors.white,
@@ -235,6 +235,34 @@ class _RegisterPageState extends State<RegisterPage> {
                 hintColor: Colors.grey.withOpacity(0.7),
                 borderRadius: 10,
                 isNumeric: true,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 20.0, right: 20.0, top: 6.0, bottom: 6.0),
+              child: TextField(
+                decoration: const InputDecoration(
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                ),
+                readOnly: true,
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime(2004),
+                    firstDate: DateTime(1930),
+                    lastDate: DateTime(2100),
+                  );
+                  String formattedDate =
+                      DateFormat('dd-MM-yyyy').format(pickedDate!);
+                  setState(() {
+                    age = formattedDate.toString();
+                  });
+                },
               ),
             ),
           ]),
