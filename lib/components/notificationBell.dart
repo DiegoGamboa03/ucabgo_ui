@@ -4,6 +4,8 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:ucabgo_ui/helpers/api_service.dart';
 
+import '../pages/trips_requests_page.dart';
+
 class NotificationBell extends StatefulWidget {
   const NotificationBell({super.key});
 
@@ -27,6 +29,8 @@ class _NotificationBellState extends State<NotificationBell> {
           ),
           onPressed: () {
             getTripRequest(context, '6388307e4ec2aed0037b2d56');
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const TripRequestPage()));
           },
         ),
       ),

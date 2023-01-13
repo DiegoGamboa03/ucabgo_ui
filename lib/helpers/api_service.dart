@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ucabgo_ui/classes/available_trip.dart';
 import 'package:ucabgo_ui/classes/landmark.dart';
+import 'package:ucabgo_ui/classes/passenger.dart';
 import 'package:ucabgo_ui/classes/point.dart';
 import 'package:ucabgo_ui/classes/trip.dart';
 import 'package:ucabgo_ui/classes/trip_request.dart';

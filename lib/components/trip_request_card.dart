@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:provider/provider.dart';
-import 'package:ucabgo_ui/classes/trip.dart';
-import 'package:ucabgo_ui/classes/user.dart';
-import 'package:ucabgo_ui/components/icon_text.dart';
+import 'package:ucabgo_ui/classes/trip_request.dart';
 
-import '../providers/polylines_provider.dart';
-
-///Widget para las tarjetas de usuario, permite mostrar la informacion del usuario
-class TripCard extends StatelessWidget {
-  final Trip trip;
-
-  const TripCard({super.key, required this.trip});
+class TripRequestCard extends StatelessWidget {
+  final TripRequest tripRequest;
+  const TripRequestCard({super.key, required this.tripRequest});
 
   @override
   Widget build(BuildContext context) {
@@ -29,28 +25,7 @@ class TripCard extends StatelessWidget {
           //Color
           color: Colors.lightGreen,
           child: InkWell(
-            onTap: () {
-              timesPressed++;
-              if (timesPressed == 1) {
-                List<LatLng> points = [];
-                for (int i = 0; i < trip.polyline.length; i++) {
-                  points
-                      .add(LatLng(trip.polyline[i].lat, trip.polyline[i].lng));
-                }
-                var polyline = Polyline(
-                    polylineId: PolylineId(trip.username),
-                    points: points,
-                    color: Colors.red);
-
-                Provider.of<Polylines>(context, listen: false)
-                    .addPolyline(polyline);
-                //Quiero que muestre el poligono
-              } else if (timesPressed == 2) {
-                print('Hola');
-              } else {
-                timesPressed = 0;
-              }
-            },
+            onTap: () {},
             child: Container(
               color: Colors.transparent,
               height: height * 0.1,
@@ -72,20 +47,13 @@ class TripCard extends StatelessWidget {
                       // hacer mas pruebas si esto realmente ayuda a escalar el texto
                       fit: BoxFit.contain,
                       child: Text(
-                        trip.username.toString(),
+                        tripRequest.passenger.username,
                         style: const TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.black87,
                             fontSize: 14),
                       ),
                     ),
-                    Row(
-                      children: const [
-                        IconText(message: '4', icon: Icons.access_alarm),
-                        IconText(message: '5', icon: Icons.android),
-                        IconText(message: '6', icon: Icons.apartment),
-                      ],
-                    )
                   ]),
                 )
               ]),
