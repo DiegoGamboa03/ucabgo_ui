@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 import 'package:ucabgo_ui/helpers/api_service.dart';
+import 'package:ucabgo_ui/pages/trips_requests_page_passenger.dart';
 
-import '../pages/trips_requests_page.dart';
+import '../pages/trips_requests_page_rider.dart';
+import '../providers/trip_type_provider.dart';
 
 class NotificationBell extends StatefulWidget {
   const NotificationBell({super.key});
@@ -28,9 +31,14 @@ class _NotificationBellState extends State<NotificationBell> {
             color: Colors.lightGreen,
           ),
           onPressed: () {
-            getTripRequest(context, '6388307e4ec2aed0037b2d56');
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const TripRequestPage()));
+            if (Provider.of<TripType>(context, listen: false).tripType ==
+                'rider') {
+              getTripRequest(context, '6388307e4ec2aed0037b2d56');
+              Navigator.pushNamed(context, '/tripsRequestRiderPage');
+            } else {
+              getMyRequests(context, '6388307e4ec2aed0037b2d55');
+              Navigator.pushNamed(context, '/tripsRequestPassengerPage');
+            }
           },
         ),
       ),

@@ -10,14 +10,16 @@ import 'package:ucabgo_ui/classes/landmark.dart';
 import 'package:ucabgo_ui/classes/passenger.dart';
 import 'package:ucabgo_ui/classes/point.dart';
 import 'package:ucabgo_ui/classes/trip.dart';
-import 'package:ucabgo_ui/classes/trip_request.dart';
+import 'package:ucabgo_ui/classes/trip_request_rider.dart';
 import 'package:ucabgo_ui/classes/zone.dart';
 import 'package:ucabgo_ui/providers/landmarks_provider.dart';
 import 'package:ucabgo_ui/providers/polygons_provider.dart';
 import 'package:ucabgo_ui/providers/trips_provider.dart';
+import 'package:ucabgo_ui/providers/trips_requests_passenger_provider.dart';
 
+import '../classes/trip_request_passenger.dart';
 import '../providers/markers_provider.dart';
-import '../providers/trips_requests_provider.dart';
+import '../providers/trips_requests_rider_provider.dart';
 
 String apiDirection = 'http://192.168.1.109:3000';
 
@@ -205,13 +207,13 @@ void offerTrip(
 
 Future getTripRequest(BuildContext context, String driverID) async {
   fetchTripsRequest(driverID).then((value) {
-    Provider.of<TripsRequests>(context, listen: false).addTripsRequest(value);
-    print(Provider.of<TripsRequests>(context, listen: false).tripsRequest);
+    Provider.of<TripsRequestsRider>(context, listen: false)
+        .addTripsRequest(value);
   });
 }
 
 //6388307e4ec2aed0037b2d56
-Future<List<TripRequest>> fetchTripsRequest(String driverID) async {
+Future<List<TripRequestRider>> fetchTripsRequest(String driverID) async {
   final response =
       await http.get(Uri.parse('$apiDirection/goOnTrip/solicitudes/$driverID'));
   String d = '$apiDirection/goOnTrip/solicitudes/$driverID';
@@ -220,9 +222,9 @@ Future<List<TripRequest>> fetchTripsRequest(String driverID) async {
     // then parse the JSON.
     dynamic data = jsonDecode(response.body);
     return data
-        .map((element) => TripRequest.fromJson(element))
+        .map((element) => TripRequestRider.fromJson(element))
         .toList()
-        .cast<TripRequest>();
+        .cast<TripRequestRider>();
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
@@ -240,6 +242,31 @@ Future<void> askTrip(String userID, String tripID) async {
     dynamic data = jsonDecode(response.body);
     //return data.map((element) => Landmark.fromJson(element)).toList();
     return;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load');
+  }
+}
+
+Future getMyRequests(BuildContext context, String passengerID) async {
+  fetchMyRequests(passengerID).then((value) {
+    Provider.of<TripsRequestsPassenger>(context, listen: false)
+        .addTripsRequest(value);
+  });
+}
+
+Future<List<TripRequestPassenger>> fetchMyRequests(String passengerID) async {
+  final response = await http
+      .get(Uri.parse('$apiDirection/goOnTrip/solicitudesHechas/$passengerID'));
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    dynamic data = jsonDecode(response.body);
+    return data
+        .map((element) => TripRequestPassenger.fromJson(element))
+        .toList()
+        .cast<TripRequestPassenger>();
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.

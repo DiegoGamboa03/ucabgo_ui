@@ -2,22 +2,22 @@ import 'package:ucabgo_ui/classes/passenger.dart';
 
 import '../helpers/api_service.dart';
 
-class TripRequest {
+class TripRequestRider {
   String id;
   String tripId;
   String passengerId;
   String status;
   Passenger passenger;
 
-  TripRequest(
+  TripRequestRider(
       {required this.id,
       required this.tripId,
       required this.passengerId,
       required this.status,
       required this.passenger});
 
-  factory TripRequest.fromJson(Map<String, dynamic> json) {
-    return TripRequest(
+  factory TripRequestRider.fromJson(Map<String, dynamic> json) {
+    return TripRequestRider(
       id: json['_id'],
       tripId: json['trip'],
       passengerId: json['passenger'],

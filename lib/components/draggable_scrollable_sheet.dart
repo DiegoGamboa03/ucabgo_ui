@@ -20,7 +20,7 @@ class _DraggableScrollableSheetTripState
   @override
   Widget build(BuildContext context) {
     if (selectedItem == '') {
-      selectedItem = context.watch<Landmarks>().getLandmarksNameList().first;
+      //selectedItem = context.watch<Landmarks>().getLandmarksNameList().first;
     }
     return DraggableScrollableSheet(
       minChildSize: 0.05,

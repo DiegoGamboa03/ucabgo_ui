@@ -15,7 +15,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    //getLandmarks(context);
+    getLandmarks(context);
     //getZones(context);
   }
 
@@ -35,7 +35,7 @@ class _SplashPageState extends State<SplashPage> {
       showLoader: true,
       loadingText: Text("Loading..."),
       navigator: const TripPage(),
-      durationInSeconds: 5,
+      durationInSeconds: 20,
     );
   }
 }

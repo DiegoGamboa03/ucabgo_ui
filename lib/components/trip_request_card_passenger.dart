@@ -3,10 +3,11 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:ucabgo_ui/classes/trip_request_passenger.dart';
 import 'package:ucabgo_ui/classes/trip_request_rider.dart';
 
 class TripRequestCard extends StatelessWidget {
-  final TripRequestRider tripRequest;
+  final TripRequestPassenger tripRequest;
   const TripRequestCard({super.key, required this.tripRequest});
 
   @override
@@ -47,7 +48,7 @@ class TripRequestCard extends StatelessWidget {
                       // hacer mas pruebas si esto realmente ayuda a escalar el texto
                       fit: BoxFit.contain,
                       child: Text(
-                        tripRequest.passenger.username,
+                        tripRequest.driverName,
                         style: const TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.black87,
