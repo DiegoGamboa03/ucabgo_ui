@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 
-///Registro de la App si el rol es Profesor o Trabajador
+///Perfil de la App
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -22,18 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String? phoneNumber;
   String? twitter;
   String? instagram;
-  String? password;
-
-  List<dynamic> roles = [
-    {"id": 1, "rol": "Estudiante"},
-    {"id": 2, "rol": "Profesor"},
-    {"id": 3, "rol": "Trabajador"}
-  ];
-  List<dynamic> genders = [
-    {"id": 1, "gender": "Maculino"},
-    {"id": 2, "gender": "Femenino"},
-    {"id": 3, "gender": "Otro"}
-  ];
+  bool _isVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
           backgroundColor: Color(0xffbcd5b8),
           leading: IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/');
+              Navigator.pushNamed(context, '/tripPage');
             },
             icon: const Icon(Icons.arrow_back),
           ),
@@ -109,17 +98,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 )
               ],
             ),
-            Padding(
-              padding: EdgeInsets.all(20.0),
-              child: Text(
-                'Tus datos',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                  color: Colors.grey,
-                ),
-              ),
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -138,6 +116,296 @@ class _ProfilePageState extends State<ProfilePage> {
                       "Editar Perfil",
                       () {
                         Navigator.pushNamed(context, '/editProfilePage');
+                      },
+                      height: 60,
+                      width: 150,
+                      fontSize: 24,
+                      btnColor: Colors.green,
+                      borderColor: Colors.green,
+                      txtColor: Colors.white,
+                      borderRadius: 15,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Text(
+                'Información Personal',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(5.0),
+              child: Row(
+                children: [
+                  Text(
+                    'Nombre: ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    'Pedro Uzcátegui',
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(5.0),
+              child: Row(
+                children: [
+                  Text(
+                    'Edad: ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    '21',
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(5.0),
+              child: Row(
+                children: [
+                  Text(
+                    'Género: ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    'Másculino',
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Text(
+                'Info. Universitaria',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(5.0),
+              child: Row(
+                children: [
+                  Text(
+                    'Rol: ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    'Estudiante',
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Visibility(
+              visible: _isVisible,
+              child: Padding(
+                padding: EdgeInsets.all(5.0),
+                child: Row(
+                  children: [
+                    Text(
+                      'Carrera: ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Text(
+                      'Ing. Informática',
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Visibility(
+              visible: _isVisible,
+              child: Padding(
+                padding: EdgeInsets.all(5.0),
+                child: Row(
+                  children: [
+                    Text(
+                      'Semestre: ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Text(
+                      '6',
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Text(
+                'Información de Contacto',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(5.0),
+              child: Row(
+                children: [
+                  Text(
+                    'Teléfono: ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    '04249705893',
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(5.0),
+              child: Row(
+                children: [
+                  Text(
+                    'Correo: ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    'pauzcategui.19@est.ucab.edu.ve',
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(5.0),
+              child: Row(
+                children: [
+                  Text(
+                    'Twitter: ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    'No registrado',
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(5.0),
+              child: Row(
+                children: [
+                  Text(
+                    'Instagram: ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    'No registrado',
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    decoration: const BoxDecoration(boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 6,
+                        offset: Offset(0, 2),
+                      )
+                    ]),
+                    height: 50,
+                    child: FormHelper.submitButton(
+                      "Cerrar Sesión",
+                      () {
+                        Navigator.pushNamed(context, '/');
                       },
                       height: 60,
                       width: 150,

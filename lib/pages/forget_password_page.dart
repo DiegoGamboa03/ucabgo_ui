@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 
-///Login de la App
+///Página de Olvido contraseña de la App
 class ForgetPasswordPage extends StatefulWidget {
   const ForgetPasswordPage({super.key});
 

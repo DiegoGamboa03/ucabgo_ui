@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 
-///Registro de la App si el rol es Profesor o Trabajador
+///Editar perfil
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
 
