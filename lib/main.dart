@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ucabgo_ui/classes/trip_request.dart';
 import 'package:ucabgo_ui/pages/login.dart';
 import 'package:ucabgo_ui/pages/splashscreen.dart';
 import 'package:ucabgo_ui/pages/trip_page.dart';
@@ -9,6 +10,7 @@ import 'package:ucabgo_ui/providers/polygons_provider.dart';
 import 'package:ucabgo_ui/providers/polylines_provider.dart';
 import 'package:ucabgo_ui/providers/trip_type_provider.dart';
 import 'package:ucabgo_ui/providers/trips_provider.dart';
+import 'package:ucabgo_ui/providers/trips_requests_provider.dart';
 
 void main() {
   runApp(
@@ -20,6 +22,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => Landmarks()),
         ChangeNotifierProvider(create: (_) => Trips()),
         ChangeNotifierProvider(create: (_) => TripType()),
+        ChangeNotifierProvider(create: (_) => TripsRequests()),
       ],
       child: const MyApp(),
     ),

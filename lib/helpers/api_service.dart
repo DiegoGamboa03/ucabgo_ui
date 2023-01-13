@@ -9,12 +9,14 @@ import 'package:ucabgo_ui/classes/available_trip.dart';
 import 'package:ucabgo_ui/classes/landmark.dart';
 import 'package:ucabgo_ui/classes/point.dart';
 import 'package:ucabgo_ui/classes/trip.dart';
+import 'package:ucabgo_ui/classes/trip_request.dart';
 import 'package:ucabgo_ui/classes/zone.dart';
 import 'package:ucabgo_ui/providers/landmarks_provider.dart';
 import 'package:ucabgo_ui/providers/polygons_provider.dart';
 import 'package:ucabgo_ui/providers/trips_provider.dart';
 
 import '../providers/markers_provider.dart';
+import '../providers/trips_requests_provider.dart';
 
 String apiDirection = 'http://192.168.1.109:3000';
 
@@ -191,4 +193,31 @@ void offerTrip(
   http.post(Uri.parse('$apiDirection/trip/$driverID/add'),
       headers: {"Content-Type": "application/x-www-form-urlencoded"},
       body: jsonMap);
+}
+
+Future getTripRequest(BuildContext context, String driverID) async {
+  fetchTripsRequest(driverID).then((value) {
+    Provider.of<TripsRequests>(context, listen: false).addTripsRequest(value);
+    print(Provider.of<TripsRequests>(context, listen: false).tripsRequest);
+  });
+}
+
+//6388307e4ec2aed0037b2d56
+Future<List<TripRequest>> fetchTripsRequest(String driverID) async {
+  final response =
+      await http.get(Uri.parse('$apiDirection/goOnTrip/solicitudes/$driverID'));
+  String d = '$apiDirection/goOnTrip/solicitudes/$driverID';
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    dynamic data = jsonDecode(response.body);
+    return data
+        .map((element) => TripRequest.fromJson(element))
+        .toList()
+        .cast<TripRequest>();
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load');
+  }
 }

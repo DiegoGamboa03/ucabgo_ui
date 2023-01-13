@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:ucabgo_ui/components/notificationBell.dart';
 import 'package:ucabgo_ui/components/rider_passenger_button.dart';
 import '../components/draggable_scrollable_sheet.dart';
 import '../components/map.dart';
@@ -20,6 +21,7 @@ class TripPage extends StatelessWidget {
         body: Stack(children: const [
       AppMap(),
       RiderPassengerButton(),
+      NotificationBell(),
       DraggableScrollableSheetTrip()
     ]));
   }
