@@ -15,8 +15,8 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    getLandmarks(context);
-    getZones(context);
+    //getLandmarks(context);
+    //getZones(context);
   }
 
   @override

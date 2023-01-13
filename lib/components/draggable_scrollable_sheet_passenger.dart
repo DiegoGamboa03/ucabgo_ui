@@ -45,10 +45,10 @@ class _DraggableScrollableSheetPassengerState
                 }).toList(),
                 onChanged: (String? value) {
                   setState(() {
+                    selectedItem = value!;
                     Provider.of<Polylines>(context, listen: false)
                         .erasePolyline();
                     Provider.of<Trips>(context, listen: false).eraseTrip();
-                    selectedItem = value!;
                     var latlng = Provider.of<Landmarks>(context, listen: false)
                         .getLandmarkPointFromName(selectedItem);
                     if (latlng != null) {

@@ -172,3 +172,20 @@ Future<List> fetchAvailableTrips() async {
     throw Exception('Failed to load specialZone');
   }
 }
+
+void offerTrip(BuildContext context, String departureTime, String lat,
+    String lng, String meetingPoint, String numberPassengers) async {
+  /*http.post(
+    Uri.parse('$apiDirection/trip/:id/add'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'departuretime': departureTime,
+      'latitud': lat,
+      'longitud': lng,
+      'meetingPoint': meetingPoint,
+      'numberPassengers': numberPassengers,
+    }),
+  );*/
+}

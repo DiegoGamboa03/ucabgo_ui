@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../helpers/api_service.dart';
 import 'trip_page.dart';
 
 String email = '';
@@ -13,6 +14,13 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getLandmarks(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

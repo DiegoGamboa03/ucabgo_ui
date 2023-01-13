@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:ucabgo_ui/components/trip_card.dart';
-import '../helpers/api_service.dart';
+import 'package:ucabgo_ui/helpers/api_service.dart';
 import '../providers/landmarks_provider.dart';
-import '../providers/polylines_provider.dart';
-import '../providers/trips_provider.dart';
 
 class DraggableScrollableSheetRider extends StatefulWidget {
   const DraggableScrollableSheetRider({super.key});
@@ -17,16 +15,35 @@ class DraggableScrollableSheetRider extends StatefulWidget {
 
 class _DraggableScrollableSheetRider
     extends State<DraggableScrollableSheetRider> {
+  List<String> meetingPlaces = [
+    'Los patos',
+    'Parada de cola',
+    'Estacionamiento dentro de la ucab',
+    'Parada arriba'
+  ];
+
   String selectedItem = '';
+  String meetingPlace = '';
+  int numberPassengers = 1;
+  TimeOfDay departureTime = TimeOfDay.now();
+
+  TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     if (selectedItem == '') {
       selectedItem = context.watch<Landmarks>().getLandmarksNameList().first;
     }
+
+    if (meetingPlace == '') {
+      meetingPlace = meetingPlaces.first;
+    }
+
     return Column(
       children: [
-        Text('Estas en rider'),
+        const Text('Estas en rider'),
         Container(
           margin: const EdgeInsets.all(10.0),
           child: Row(
@@ -45,40 +62,92 @@ class _DraggableScrollableSheetRider
                 }).toList(),
                 onChanged: (String? value) {
                   setState(() {
-                    Provider.of<Polylines>(context, listen: false)
-                        .erasePolyline();
-                    Provider.of<Trips>(context, listen: false).eraseTrip();
                     selectedItem = value!;
-                    var latlng = Provider.of<Landmarks>(context, listen: false)
-                        .getLandmarkPointFromName(selectedItem);
-                    if (latlng != null) {
-                      getTripPolygon(
-                          context, latlng.latitude, latlng.longitude);
-                    }
                   });
                 },
               ),
             ],
           ),
         ),
-        Provider.of<Trips>(context, listen: true).trips.isNotEmpty
-            ? ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount:
-                    Provider.of<Trips>(context, listen: true).trips.length,
-                itemBuilder: (BuildContext context, int index) {
-                  if (Provider.of<Trips>(context, listen: false)
-                      .trips
-                      .isNotEmpty) {
-                    return TripCard(
-                        trip: Provider.of<Trips>(context, listen: true)
-                            .trips[index]);
-                  }
-                  return Container();
+        Container(
+          margin: const EdgeInsets.all(10.0),
+          child: Row(
+            children: [
+              const FaIcon(FontAwesomeIcons.locationDot),
+              DropdownButton<String>(
+                value: meetingPlace,
+                items: meetingPlaces
+                    .map<DropdownMenuItem<String>>((String? value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value!),
+                  );
+                }).toList(),
+                onChanged: (String? value) {
+                  setState(() {
+                    meetingPlace = value!;
+                  });
                 },
-              )
-            : const Text('No hay viajes disponibles')
+              ),
+            ],
+          ),
+        ),
+        TextField(
+          controller: controller,
+          decoration:
+              const InputDecoration.collapsed(hintText: 'Hora de salida'),
+          readOnly: true,
+          onTap: () {
+            Future<TimeOfDay?> time = showTimePicker(
+              context: context,
+              initialTime: TimeOfDay.now(),
+            );
+            time.then((value) {
+              if (value != null) {
+                controller.value =
+                    TextEditingValue(text: value.format(context).toString());
+              }
+            });
+          },
+        ),
+        SpinBox(
+          min: 1,
+          max: 8,
+          value: 1,
+          decoration: const InputDecoration(labelText: 'Cantidad de pasajeros'),
+          onChanged: (value) => print(value),
+        ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: OutlinedButton(
+              onPressed: () {
+                var latlng = Provider.of<Landmarks>(context, listen: false)
+                    .getLandmarkPointFromName(selectedItem);
+                if (latlng != null) {
+                  final now = DateTime.now();
+
+                  offerTrip(
+                      context,
+                      DateTime(now.year, now.month, now.day, departureTime.hour,
+                              departureTime.minute)
+                          .toString(),
+                      latlng.latitude.toString(),
+                      latlng.longitude.toString(),
+                      meetingPlace,
+                      numberPassengers.toString());
+                }
+              },
+              style: ButtonStyle(
+                  backgroundColor:
+                      const MaterialStatePropertyAll<Color>(Colors.lightGreen),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(18.0)),
+                          side: BorderSide(color: Colors.lightGreen))),
+                  fixedSize: MaterialStateProperty.all<Size>(
+                      Size(width * 0.4, height * 0.05))),
+              child: const Text('Quiero dar una cola')),
+        ),
       ],
     );
   }
