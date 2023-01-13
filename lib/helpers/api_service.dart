@@ -146,11 +146,18 @@ Future<Trip> fetchTripPolygon(var lat, var lng, var id) async {
     var polygon =
         data['polygon'].map((element) => Position.fromJson(element)).toList();
     var username = data['username'];
+    var userid = data['userid'];
+    var tripid = id;
     var polyline = data['polyline']
         .map((element) => Position(lat: element[0], lng: element[1]))
         .toList();
 
-    return Trip(polygon: polygon, username: username, polyline: polyline);
+    return Trip(
+        id: tripid,
+        polygon: polygon,
+        username: username,
+        polyline: polyline,
+        userID: userid);
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
@@ -216,6 +223,23 @@ Future<List<TripRequest>> fetchTripsRequest(String driverID) async {
         .map((element) => TripRequest.fromJson(element))
         .toList()
         .cast<TripRequest>();
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load');
+  }
+}
+
+Future<void> askTrip(String userID, String tripID) async {
+  var d = '$apiDirection/goOnTrip/$userID/$tripID/ask';
+  final response =
+      await http.get(Uri.parse('$apiDirection/goOnTrip/$userID/$tripID/ask'));
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    dynamic data = jsonDecode(response.body);
+    //return data.map((element) => Landmark.fromJson(element)).toList();
+    return;
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.

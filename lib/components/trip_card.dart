@@ -5,6 +5,7 @@ import 'package:ucabgo_ui/classes/trip.dart';
 import 'package:ucabgo_ui/classes/user.dart';
 import 'package:ucabgo_ui/components/icon_text.dart';
 
+import '../helpers/api_service.dart';
 import '../providers/polylines_provider.dart';
 
 ///Widget para las tarjetas de usuario, permite mostrar la informacion del usuario
@@ -46,7 +47,7 @@ class TripCard extends StatelessWidget {
                     .addPolyline(polyline);
                 //Quiero que muestre el poligono
               } else if (timesPressed == 2) {
-                print('Hola');
+                askTrip('63b76367e00838902af30c16', trip.id);
               } else {
                 timesPressed = 0;
               }
