@@ -173,19 +173,22 @@ Future<List> fetchAvailableTrips() async {
   }
 }
 
-void offerTrip(BuildContext context, String departureTime, String lat,
-    String lng, String meetingPoint, String numberPassengers) async {
-  /*http.post(
-    Uri.parse('$apiDirection/trip/:id/add'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, String>{
-      'departuretime': departureTime,
-      'latitud': lat,
-      'longitud': lng,
-      'meetingPoint': meetingPoint,
-      'numberPassengers': numberPassengers,
-    }),
-  );*/
+void offerTrip(
+    BuildContext context,
+    String departureTime,
+    String lat,
+    String lng,
+    String meetingPoint,
+    String numberPassengers,
+    String driverID) async {
+  Map<String, dynamic> jsonMap = {
+    'departureTime': departureTime,
+    'latitud': lat,
+    'longitud': lng,
+    'meetingPoint': meetingPoint,
+    'numberPassengers': numberPassengers,
+  };
+  http.post(Uri.parse('$apiDirection/trip/$driverID/add'),
+      headers: {"Content-Type": "application/x-www-form-urlencoded"},
+      body: jsonMap);
 }

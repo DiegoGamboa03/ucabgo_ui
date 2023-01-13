@@ -104,6 +104,7 @@ class _DraggableScrollableSheetRider
             );
             time.then((value) {
               if (value != null) {
+                departureTime = value;
                 controller.value =
                     TextEditingValue(text: value.format(context).toString());
               }
@@ -115,7 +116,7 @@ class _DraggableScrollableSheetRider
           max: 8,
           value: 1,
           decoration: const InputDecoration(labelText: 'Cantidad de pasajeros'),
-          onChanged: (value) => print(value),
+          onChanged: (value) => numberPassengers = value.toInt(),
         ),
         Align(
           alignment: Alignment.centerRight,
@@ -125,7 +126,6 @@ class _DraggableScrollableSheetRider
                     .getLandmarkPointFromName(selectedItem);
                 if (latlng != null) {
                   final now = DateTime.now();
-
                   offerTrip(
                       context,
                       DateTime(now.year, now.month, now.day, departureTime.hour,
@@ -134,7 +134,8 @@ class _DraggableScrollableSheetRider
                       latlng.latitude.toString(),
                       latlng.longitude.toString(),
                       meetingPlace,
-                      numberPassengers.toString());
+                      numberPassengers.toString(),
+                      '6388307e4ec2aed0037b2d56');
                 }
               },
               style: ButtonStyle(
